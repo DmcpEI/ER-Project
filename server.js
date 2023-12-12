@@ -5,23 +5,30 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
+app.set("view engine", "ejs");
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Serve the index.html file
+// Serve the index file
 app.get('/', async (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'index.html'));
+    res.render('index.ejs');
 });
 
-// Serve the processo.html file
-app.get('/processo', async (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'processo.html'));
+// Serve the login file
+app.get('/login', async (req, res) => {
+    res.render('login.ejs');
 });
 
-// Serve the 404.html file for any other routes
+// Serve the register file
+app.get('/register', async (req, res) => {
+    res.render('register.ejs');
+});
+
+// Serve the 404 file for any other routes
 app.use((req, res) => {
-    res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
+    res.render('404.ejs');
 });
 
 app.listen(PORT, () => {
