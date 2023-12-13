@@ -1,4 +1,7 @@
 <h1>Login</h1>
+<% if (message && message.length > 0) { %>
+    <p><%= message[0] %></p>
+<% } %>
 <form action="/login" method="POST">
     <div>
         <label for="email">Email</label>
