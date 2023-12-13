@@ -33,7 +33,7 @@ app.use(passport.session())
 
 // Serve the index file
 app.get('/', async (req, res) => {
-    res.render('index.ejs', { name: req.user.name });
+    res.render('index.ejs');
 });
 
 //Serve the painel file
@@ -48,7 +48,7 @@ app.get('/login', (req, res) => {
 
 //Login
 app.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
+    successRedirect: '/painel',
     failureRedirect: '/login',
     failureFlash: true
 }), (req, res) => {

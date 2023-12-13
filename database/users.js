@@ -5,16 +5,31 @@ const getAllUsers = async () => {
     return await db.users.find().toArray();
 };
 
-const getUserByNumeroAluno = async (numeroAluno) => {
-    return await db.users.findOne({ numeroAluno: numeroAluno });
-}
+const getUserById = async (id) => {
+    try {
+        const user = await db.users.findOne({ _id: new ObjectId(id) });
+        return user;
+    } catch (error) {
+        throw new Error(`Error fetching user by ID: ${error}`);
+    }
+};
 
 const getUserByEmail = async (email) => {
     return await db.users.findOne({ emailUniversitario: email });
 };
 
+const insertUser = async (userData) => {
+    try {
+        const result = await db.users.insertOne(userData);
+        return result.insertedId; // Retorna o ID do usuário inserido
+    } catch (error) {
+        throw new Error(`Erro ao inserir usuário: ${error}`);
+    }
+};
+
 module.exports = {
-getAllUsers,
-getUserByNumeroAluno,
-getUserByEmail
+    getAllUsers,
+    getUserById,
+    getUserByEmail,
+    insertUser
 };
