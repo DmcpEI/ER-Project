@@ -15,7 +15,11 @@ const getUserById = async (id) => {
 };
 
 const getUserByEmail = async (email) => {
-    return await db.users.findOne({ emailUniversitario: email });
+    let user = await db.users.findOne({ emailUniversitario: email });
+    if (!user) {
+        user = await db.users.findOne({ emailPessoal: email });
+    }
+    return user;
 };
 
 const insertUser = async (userData) => {
