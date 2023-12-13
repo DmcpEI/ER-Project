@@ -1,4 +1,4 @@
-const { getUserByNumeroAluno, getUserByEmail } = require('./database/users')
+const { getUserById, getUserByEmail } = require('./database/users')
 
 const LocalStrategy = require('passport-local').Strategy
 
