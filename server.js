@@ -8,6 +8,8 @@ const passport = require('passport')
 const flash = require('express-flash')
 const session = require('express-session')
 
+const { insertUser } = require('./database/users')
+
 const initializePassport = require('./passport-config')
 initializePassport(passport)
 
@@ -31,7 +33,12 @@ app.use(passport.session())
 
 // Serve the index file
 app.get('/', async (req, res) => {
-    res.render('index.ejs', { name: req.user.name });
+    res.render('index.ejs');
+});
+
+//Serve the painel file
+app.get('/painel', async (req, res) => {
+    res.render('painel.ejs', { name: req.user.name });
 });
 
 // Serve the login file
@@ -41,16 +48,37 @@ app.get('/login', (req, res) => {
 
 //Login
 app.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
+    successRedirect: '/painel',
     failureRedirect: '/login',
     failureFlash: true
 }), (req, res) => {
     res.render('login.ejs', { message: req.flash('error') });
 });
 
-// Serve the register file
-app.get('/register', async (req, res) => {
-    res.render('register.ejs');
+// Serve the candidato file
+app.get('/candidato', async (req, res) => {
+    res.render('candidato.ejs');
+});
+
+//Registar Candidato
+app.post('/candidato', async (req, res) => {
+
+    const newUser = {
+        tipo: 'Candidato',
+        name: req.body.name,
+        curso: req.body.curso,
+        emailPessoal: req.body.email,
+        processos: [],
+        password: 'candidato' + (Math.random() * (99999 - 99) + 99)
+    };
+
+    try {
+        await insertUser(newUser);
+        res.render('login.ejs', { message: "Código é '" + newUser.password + "'"});
+    } catch (error) {
+        res.status(500).send('Erro ao inserir usuário.');
+    }
+
 });
 
 // Serve the 404 file for any other routes
