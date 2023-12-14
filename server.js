@@ -84,6 +84,7 @@ app.post('/candidato', async (req, res) => {
 
 // Serve the candidato file
 app.get('/informacao', async (req, res) => {
+    //Falta funções de buscar pautas
     res.render('informacaoPublica.ejs');
 });
 
@@ -109,6 +110,10 @@ app.post('/processos', async (req, res) => {
     }catch{
         res.status(500).send('Erro ao criar processo');
     }
+});
+
+app.get('/pautas', async (req, res) => {
+    res.render('pautas.ejs', { user: req.user });
 });
 
 // Serve the 404 file for any other routes

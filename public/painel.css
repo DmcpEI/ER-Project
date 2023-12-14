@@ -23,6 +23,10 @@ body {
   border-radius: 10px;
 }
 
+.col_sel {
+  color: white;
+}
+
 .col_log {
   color: red;
 }

@@ -13,15 +13,14 @@
       <% if (user.tipo == 'Aluno') { %>
         <a href="/processos">Processo</a>
       <% } %>
-      <label class="col">Pautas</label>
+      <% if (user.tipo == 'Aluno' || user.tipo == 'Regente') { %>
+      <label class="col" onclick="location.href='http://localhost:3000/pautas';">Pautas Escolares</label>
+      <% } %>
       <% if (user.tipo == 'Candidato') { %>
       <label class="col">Candidatura</label>
       <% } %>
-      <label class="col">Informação Pública</label>
-      <label
-        class="col_log"
-        onclick="location.href='http://localhost:3000/login';"
-        >Logout</label
+      <label class="col" onclick="location.href='http://localhost:3000/informacao';">Informação Pública</label>
+      <label class="col_log" onclick="location.href='http://localhost:3000/login';">Logout</label
       >
     </div>
   </body>
