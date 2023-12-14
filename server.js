@@ -86,6 +86,11 @@ app.get('/informacao', async (req, res) => {
     res.render('informacaoPublica.ejs');
 });
 
+// Serve the candidato file
+app.get('/pautas', async (req, res) => {
+    res.render('pautas.ejs');
+});
+
 // Serve the 404 file for any other routes
 app.use((req, res) => {
     res.render('404.ejs');
