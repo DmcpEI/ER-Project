@@ -6,7 +6,9 @@ const client = new MongoClient(uri);
 
 const database = client.db('SGAU');
 const users = database.collection('Users');
+const processos = database.collection('Processos');
 
 module.exports = {
-    users
+    users,
+    processos
 };

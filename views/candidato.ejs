@@ -1,17 +1,28 @@
-<h1>Candidato</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGAU | Candidato</title>
+
+    <link href="candidato.css" rel="stylesheet" />
+</head>
+
+<h1>Informações para Candidato</h1>
 <form action="/candidato" method="POST">
     <div>
-        <label for="name">Nome</label>
-        <input type="text" id="name" name="name" required>
+        <label for="name"></label>
+        <input type="text" id="name" name="name" placeholder="Name" required>
     </div>
     <div>
-        <label for="email">Email</label>
-        <input type="text" id="email" name="email" required>
+        <label for="email"></label>
+        <input type="text" id="email" name="email" placeholder="Email" required>
     </div>
     <div>
-        <label for="curso">Curso a Candidatar</label>
-        <input type="curso" id="curso" name="curso" required>
+        <label for="curso"></label>
+        <input type="text" id="curso" name="curso" placeholder="Curso a Candidatar" required>
     </div>
-    <button type="submit">LogIn</button>
+    <button type="submit">Submeter</button>
 </form>
 <a href="/login">Login</a>

@@ -38,7 +38,7 @@ app.get('/', async (req, res) => {
 
 //Serve the painel file
 app.get('/painel', async (req, res) => {
-    res.render('painel.ejs', { name: req.user.name });
+    res.render('painel.ejs', { user: req.user });
 });
 
 // Serve the login file
@@ -79,6 +79,11 @@ app.post('/candidato', async (req, res) => {
         res.status(500).send('Erro ao inserir usuário.');
     }
 
+});
+
+// Serve the candidato file
+app.get('/informacao', async (req, res) => {
+    res.render('informacaoPublica.ejs');
 });
 
 // Serve the 404 file for any other routes
