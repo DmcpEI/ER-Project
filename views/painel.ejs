@@ -10,9 +10,13 @@
   </head>
   <body>
     <div class="navbar">
-      <label class="col">Processo</label>
+      <% if (user.tipo == 'Aluno') { %>
+        <label class="col">Processo</label>
+      <% } %>
       <label class="col">Pautas</label>
+      <% if (user.tipo == 'Candidato') { %>
       <label class="col">Candidatura</label>
+      <% } %>
       <label class="col">Informação Pública</label>
       <label
         class="col_log"
