@@ -23,8 +23,18 @@ const getProcessoByUser = async (userId) => {
     }
 }
 
+const insertProcesso = async (processoData) => {
+    try {
+        const result = await db.processos.insertOne(processoData);
+        return result.insertedId; // Retorna o ID do usuário inserido
+    } catch (error) {
+        throw new Error(`Erro ao inserir processo: ${error}`);
+    }
+};
+
 module.exports = {
     getAllProcessos,
     getProcessoById,
-    getProcessoByUser
+    getProcessoByUser,
+    insertProcesso
 }

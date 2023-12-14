@@ -11,7 +11,7 @@
   <body>
     <div class="navbar">
       <% if (user.tipo == 'Aluno') { %>
-        <label class="col">Processo</label>
+        <a href="/processos">Processo</a>
       <% } %>
       <% if (user.tipo == 'Aluno' || user.tipo == 'Regente') { %>
       <label class="col" onclick="location.href='http://localhost:3000/pautas';">Pautas Escolares</label>

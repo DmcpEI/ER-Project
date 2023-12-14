@@ -10,7 +10,8 @@ const session = require('express-session')
 
 const { insertUser } = require('./database/users')
 
-const initializePassport = require('./passport-config')
+const initializePassport = require('./passport-config');
+const { insertProcesso } = require('./database/processos');
 initializePassport(passport)
 
 const app = express();
@@ -85,6 +86,30 @@ app.post('/candidato', async (req, res) => {
 app.get('/informacao', async (req, res) => {
     //Falta funções de buscar pautas
     res.render('informacaoPublica.ejs');
+});
+
+app.get('/processos', async(req,res) =>{
+    res.render('processos.ejs');
+});
+
+//Criar um processo
+app.post('/processos', async (req, res) => {
+    
+    const newProcesso = {
+        numeroAluno: req.body.numeroAluno,
+        name: req.body.name,
+        curso: req.body.curso,
+        anoLetivo: req.body.anoLetivo,
+        pedido: req.body.pedido,
+        assunto: req.body.assunto,
+    };
+
+    try{
+        await insertProcesso(newProcesso);
+        //fazer com que made para o historico de processos
+    }catch{
+        res.status(500).send('Erro ao criar processo');
+    }
 });
 
 app.get('/pautas', async (req, res) => {
