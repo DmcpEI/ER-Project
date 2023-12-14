@@ -32,6 +32,7 @@ const getPautaByDisciplina= async (disciplina) => {
     }
 };
 
+
 module.exports = {
     getAllPautas,
     getPautaById,

@@ -9,7 +9,7 @@
   </head>
   <body>
     <div class="navbar">
-        <% if (user.tipo == 'Aluno') { %>
+        <% if (user.tipo == 'Aluno' || user.tipo == 'DC' || user.tipo == 'AA' || user.tipo == 'PAA') { %>
             <label class="col" onclick="location.href='http://localhost:3000/processos';">Processos</label>
         <% } %>
         <% if (user.tipo == 'Aluno' || user.tipo == 'Regente') { %>
@@ -22,5 +22,21 @@
         <label class="col_log" onclick="location.href='http://localhost:3000/login';">Logout</label
       >
     </div>
+    <div>
+      <% if (user.tipo == 'Aluno') { %>
+        <% pautas.forEach(pauta => { %>
+          <% if (user.disciplinas.includes(pauta.disciplina)) { %>
+            <% if (pauta.tipoAvaliacao == 'Frequencia1') { %>
+              <h1>Notas da primeira frequência de <%= pauta.disciplina %></h1>
+            <% } else if (pauta.tipoAvaliacao == 'Frequencia2') { %>
+              <h1>Notas da segunda frequência de <%= pauta.disciplina %></h1>
+            <% } else if (pauta.tipoAvaliacao == 'Final') { %>
+              <h1>Notas finais de <%= pauta.disciplina %></h1>
+            <% } %>
+          <% } %>
+        <% }); %>
+      <% } %>
+    </div>
+    
   </body>
 </html>

@@ -16,8 +16,8 @@ const getProcessoById= async (id) => {
 
 const getProcessoByUser = async (userId) => {
     try {
-        const processo = await db.processos.findOne({ userId: userId });
-        return processo;
+        const processos = await db.processos.find({ userId: userId }).toArray();
+        return processos;
     } catch (error) {
         throw new Error(`Error fetching processo by user: ${error}`);
     }

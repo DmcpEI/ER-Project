@@ -9,9 +9,10 @@ const flash = require('express-flash')
 const session = require('express-session')
 
 const { insertUser } = require('./database/users')
+const { getAllPautas } = require('./database/pautas')
+const { insertProcesso, getProcessoByUser } = require('./database/processos');
 
 const initializePassport = require('./passport-config');
-const { insertProcesso } = require('./database/processos');
 initializePassport(passport)
 
 const app = express();
@@ -89,31 +90,40 @@ app.get('/informacao', async (req, res) => {
 });
 
 app.get('/processos', async(req,res) =>{
-    res.render('processos.ejs', { user: req.user });
+    res.render('processos.ejs', { user: req.user, processos: getProcessoByUser(req.user._id)});
 });
 
 //Criar um processo
 app.post('/processos', async (req, res) => {
     
     const newProcesso = {
-        numeroAluno: req.body.numeroAluno,
-        name: req.body.name,
         curso: req.body.curso,
+        numeroAluno: req.body.numAluno,
+        entidade: req.body.entidade,
         anoLetivo: req.body.anoLetivo,
-        pedido: req.body.pedido,
+        pedido: req.body.pedidos,
         assunto: req.body.assunto,
+        ficheiro: req.body.ficheiro,
+        userId: req.body.userId
     };
 
     try{
         await insertProcesso(newProcesso);
-        //fazer com que made para o historico de processos
+        res.render('painel.ejs', { user: req.user });
     }catch{
         res.status(500).send('Erro ao criar processo');
     }
 });
 
 app.get('/pautas', async (req, res) => {
-    res.render('pautas.ejs', { user: req.user });
+    try {
+        const pautas = await getAllPautas();
+        res.render('pautas.ejs', { user: req.user, pautas: pautas });
+    } catch (error) {
+        // Lidar com erros se a obtenção das pautas falhar
+        console.error(error);
+        res.status(500).send('Erro ao buscar pautas');
+    }
 });
 
 // Serve the 404 file for any other routes

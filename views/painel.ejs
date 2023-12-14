@@ -10,7 +10,7 @@
   </head>
   <body>
     <div class="navbar">
-      <% if (user.tipo == 'Aluno') { %>
+      <% if (user.tipo == 'Aluno' || user.tipo == 'DC' || user.tipo == 'AA' || user.tipo == 'PAA') { %>
         <label class="col" onclick="location.href='http://localhost:3000/processos';">Processos</label>
       <% } %>
       <% if (user.tipo == 'Aluno' || user.tipo == 'Regente') { %>
