@@ -1,16 +1,36 @@
 <!DOCTYPE html>
-
-
-<h1>Teste</h1>
-
-
-<form method="post">
-    <div>
-        <select>
-            
-        </select>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SGAU | Processos</title>
+    <link href="/processos.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div class="navbar">
+        <% if (user.tipo == 'Aluno') { %>
+            <label class="col_sel">Processos</label>
+        <% } %>
+        <% if (user.tipo == 'Aluno' || user.tipo == 'Regente') { %>
+            <label class="col" onclick="location.href='http://localhost:3000/pautas';">Pautas Escolares</label>
+        <% } %>
+        <% if (user.tipo == 'Candidato') { %>
+            <label class="col">Candidatura</label>
+        <% } %>
+        <label class="col" onclick="location.href='http://localhost:3000/informacao';">Informação Pública</label>
+        <label class="col_log" onclick="location.href='http://localhost:3000/login';">Logout</label
+      >
     </div>
 
-</form>
+    <form method="post">
+        <div>
+            <select>
+                
+            </select>
+        </div>
 
+    </form>
+
+</body>
 </html>

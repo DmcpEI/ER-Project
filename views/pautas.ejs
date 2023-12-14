@@ -5,13 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SGAU | Painel</title>
-    <link href="/painel.css" rel="stylesheet" type="text/css" />
     <link href="/pautas.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <div class="navbar">
         <% if (user.tipo == 'Aluno') { %>
-            <label class="col">Processo</label>
+            <label class="col" onclick="location.href='http://localhost:3000/processos';">Processos</label>
         <% } %>
         <% if (user.tipo == 'Aluno' || user.tipo == 'Regente') { %>
             <label class="col_sel">Pautas Escolares</label>

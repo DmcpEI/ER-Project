@@ -89,7 +89,7 @@ app.get('/informacao', async (req, res) => {
 });
 
 app.get('/processos', async(req,res) =>{
-    res.render('processos.ejs');
+    res.render('processos.ejs', { user: req.user });
 });
 
 //Criar um processo
