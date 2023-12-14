@@ -1,0 +1,20 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+    background-image: url(https://i.ibb.co/QfDyjzd/bandeirafullhd.jpg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    overflow-x: hidden;
+  }
+.table-white-bg {
+    background-color: #fff; /* Set your preferred background color */
+}
+
+.outlined-title {
+    color: black;
+    -webkit-text-stroke: 1px white; /* Width and color of the stroke */
+}

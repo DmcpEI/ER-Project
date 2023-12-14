@@ -83,7 +83,12 @@ app.post('/candidato', async (req, res) => {
 
 // Serve the candidato file
 app.get('/informacao', async (req, res) => {
+    //Falta funções de buscar pautas
     res.render('informacaoPublica.ejs');
+});
+
+app.get('/pautas', async (req, res) => {
+    res.render('pautas.ejs', { user: req.user });
 });
 
 // Serve the 404 file for any other routes
