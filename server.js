@@ -38,7 +38,7 @@ app.get('/', async (req, res) => {
 
 //Serve the painel file
 app.get('/painel', async (req, res) => {
-    res.render('painel.ejs', { name: req.user.name });
+    res.render('painel.ejs', { user: req.user });
 });
 
 // Serve the login file
