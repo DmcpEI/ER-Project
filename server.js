@@ -10,7 +10,7 @@ const session = require('express-session')
 
 const { insertUser } = require('./database/users')
 const { insertPautaNotas, getPautaNotasByUser, getPautaByType } = require('./database/pautas')
-const { insertProcesso, getProcessoByUser } = require('./database/processos');
+const { insertProcesso, getProcessoByUser, getAllProcessos } = require('./database/processos');
 
 const initializePassport = require('./passport-config');
 initializePassport(passport)
@@ -91,8 +91,14 @@ app.get('/informacao', async (req, res) => {
 
 app.get('/processos', async (req, res) => {
     try {
-        const userProcessos = await getProcessoByUser(req.user._id);
-        res.render('processos.ejs', { user: req.user, processos: userProcessos });
+        if(req.user.tipo == 'Aluno' || req.user.tipo == 'Candidato') {
+            const userProcessos = await getProcessoByUser(req.user._id);
+            res.render('processos.ejs', { user: req.user, processos: userProcessos });
+        }
+        else if(req.user.tipo == 'DC' || req.user.tipo == 'AA' || req.user.tipo == 'PAA') {
+            const processos = await getAllProcessos();
+            res.render('processos.ejs', { user: req.user, processos: processos });
+        }
     } catch (error) {
         // Lidar com erros se a obtenção dos processos falhar
         console.error(error);
@@ -111,7 +117,8 @@ app.post('/processos', async (req, res) => {
         pedido: req.body.pedidos,
         assunto: req.body.assunto,
         ficheiro: req.body.ficheiro,
-        userId: req.body.userId
+        userId: req.body.userId,
+        estado: 'Submetido para validação'
     };
 
     try{
@@ -141,12 +148,24 @@ app.get('/pautas', async (req, res) => {
 //Criar uma pauta de notas
 app.post('/pautas', async (req, res) => {
     
-    const newPauta = {
-        tipo: "Notas",
-        disciplina: req.body.disciplina,
-        documento: req.body.documento,
-        tipoAvaliacao: req.body.tipoAvaliacao,
-    };
+    //Pode estar errado
+
+    if(req.user.tipo == "Regente") {
+        const newPauta = {
+            tipo: "Notas",
+            disciplina: req.body.disciplina,
+            documento: req.body.documento,
+            tipoAvaliacao: req.body.tipoAvaliacao,
+        };
+    } 
+    else{
+        const newPauta = {
+            tipo: "Colocados",
+            curso: req.body.curso,
+            documento: req.body.documento,
+            tipoCurso: req.body.tipoCurso,
+        };
+    }   
 
     try{
         await insertPautaNotas(newPauta);
