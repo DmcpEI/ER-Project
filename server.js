@@ -9,7 +9,7 @@ const flash = require('express-flash')
 const session = require('express-session')
 
 const { insertUser } = require('./database/users')
-const { getAllPautas } = require('./database/pautas')
+const { insertPautaNotas, getPautaNotasByUser, getPautaByType } = require('./database/pautas')
 const { insertProcesso, getProcessoByUser } = require('./database/processos');
 
 const initializePassport = require('./passport-config');
@@ -89,8 +89,15 @@ app.get('/informacao', async (req, res) => {
     res.render('informacaoPublica.ejs');
 });
 
-app.get('/processos', async(req,res) =>{
-    res.render('processos.ejs', { user: req.user, processos: getProcessoByUser(req.user._id)});
+app.get('/processos', async (req, res) => {
+    try {
+        const userProcessos = await getProcessoByUser(req.user._id);
+        res.render('processos.ejs', { user: req.user, processos: userProcessos });
+    } catch (error) {
+        // Lidar com erros se a obtenção dos processos falhar
+        console.error(error);
+        res.status(500).send('Erro ao buscar processos');
+    }
 });
 
 //Criar um processo
@@ -117,12 +124,35 @@ app.post('/processos', async (req, res) => {
 
 app.get('/pautas', async (req, res) => {
     try {
-        const pautas = await getAllPautas();
-        res.render('pautas.ejs', { user: req.user, pautas: pautas });
+        if(req.user.tipo == 'Aluno' || req.user.tipo == 'Regente') {
+            const userPautas = await getPautaNotasByUser(req.user.disciplinas);
+            res.render('pautas.ejs', { user: req.user, pautas: userPautas });
+        } else if(req.user.tipo == 'DC') {
+            const userPautas = await getPautaByType('Colocados');
+            res.render('pautas.ejs', { user: req.user, pautas: userPautas });
+        }
     } catch (error) {
         // Lidar com erros se a obtenção das pautas falhar
         console.error(error);
         res.status(500).send('Erro ao buscar pautas');
+    }
+});
+
+//Criar uma pauta de notas
+app.post('/pautas', async (req, res) => {
+    
+    const newPauta = {
+        tipo: "Notas",
+        disciplina: req.body.disciplina,
+        documento: req.body.documento,
+        tipoAvaliacao: req.body.tipoAvaliacao,
+    };
+
+    try{
+        await insertPautaNotas(newPauta);
+        res.render('painel.ejs', { user: req.user });
+    }catch{
+        res.status(500).send('Erro ao criar pauta');
     }
 });
 

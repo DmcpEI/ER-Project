@@ -15,6 +15,9 @@
         <% if (user.tipo == 'Aluno' || user.tipo == 'Regente') { %>
             <label class="col_sel">Pautas Escolares</label>
         <% } %>
+        <% if (user.tipo == 'DC') { %>
+          <label class="col_sel">Pautas de Colocados</label>
+        <% } %>
         <% if (user.tipo == 'Candidato') { %>
             <label class="col">Candidatura</label>
         <% } %>
@@ -23,20 +26,36 @@
       >
     </div>
     <div>
-      <% if (user.tipo == 'Aluno') { %>
-        <% pautas.forEach(pauta => { %>
-          <% if (user.disciplinas.includes(pauta.disciplina)) { %>
+      <% if (user.tipo == 'Aluno' || user.tipo == 'Regente') { %>
+        <% if (pautas) { %>
+          <% pautas.forEach(pauta => { %>
             <% if (pauta.tipoAvaliacao == 'Frequencia1') { %>
-              <h1>Notas da primeira frequência de <%= pauta.disciplina %></h1>
+              <label onclick="location.href='<%= pauta.documento %>';"> Notas da primeira frequência de <%= pauta.disciplina %> </label>
             <% } else if (pauta.tipoAvaliacao == 'Frequencia2') { %>
-              <h1>Notas da segunda frequência de <%= pauta.disciplina %></h1>
+              <label onclick="location.href='<%= pauta.documento %>';"> Notas da segunda frequência de <%= pauta.disciplina %> </label>
             <% } else if (pauta.tipoAvaliacao == 'Final') { %>
-              <h1>Notas finais de <%= pauta.disciplina %></h1>
+              <label onclick="location.href='<%= pauta.documento %>';"> Notas finais de <%= pauta.disciplina %> </label>
             <% } %>
-          <% } %>
-        <% }); %>
+          <% }); %>
+        <% } else {%>
+          <h1>Não existem pautas escolares</h1>
+        <% } %>
+      <% } %>
+
+      <% if (user.tipo == 'DC') { %>
+        <% if (pautas) { %>
+          <% pautas.forEach(pauta => { %>
+            <label onclick="location.href='<%= pauta.documento %>';">Colocados da <%= pauta.tipoCurso %> de <%= pauta.curso %></label>
+          <% }); %>
+        <% } else {%>
+          <h1>Não existem pautas de colocados</h1>
+        <% } %>
       <% } %>
     </div>
+
+    <% if (user.tipo == 'Regente' || user.tipo == 'DC') { %>
+      <h1>Meter aqui form para adicionar uma pauta</h1>
+    <% } %>
     
   </body>
 </html>

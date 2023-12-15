@@ -14,14 +14,15 @@ const getPautaById= async (id) => {
     }
 };
 
-const getPautaByType= async (tipo) => {
+const getPautaByType = async (tipo) => {
     try {
-        const pauta = await db.pautas.findOne({ tipo: tipo });
+        const pauta = await db.pautas.find({ tipo: tipo }).toArray();
         return pauta;
     } catch (error) {
         throw new Error(`Error fetching pauta by type: ${error}`);
     }
 };
+
 
 const getPautaByDisciplina= async (disciplina) => {
     try {
@@ -32,10 +33,33 @@ const getPautaByDisciplina= async (disciplina) => {
     }
 };
 
+const getPautaNotasByUser = async (userDisciplinas) => {
+    try {
+        const pautasPromises = userDisciplinas.map(async (disciplina) => {
+            return await db.pautas.find({ disciplina: disciplina }).toArray();
+        });
+
+        const pautas = await Promise.all(pautasPromises);
+        return pautas.flat(); // Retorna um array único com todas as pautas das disciplinas
+    } catch (error) {
+        throw new Error(`Error fetching pauta by disciplina: ${error}`);
+    }
+};
+
+const insertPautaNotas = async (pautaData) => {
+    try {
+        const result = await db.pautas.insertOne(pautaData);
+        return result.insertedId; // Retorna o ID da pauta inserida
+    } catch (error) {
+        throw new Error(`Erro ao inserir processo: ${error}`);
+    }
+};
 
 module.exports = {
     getAllPautas,
     getPautaById,
     getPautaByType,
-    getPautaByDisciplina
+    getPautaByDisciplina,
+    getPautaNotasByUser,
+    insertPautaNotas
 };

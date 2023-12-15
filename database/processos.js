@@ -16,8 +16,11 @@ const getProcessoById= async (id) => {
 
 const getProcessoByUser = async (userId) => {
     try {
-        const processos = await db.processos.find({ userId: userId }).toArray();
-        return processos;
+        const processos = await db.processos.find().toArray(); // Fetch all processes
+        const userProcessos = processos.filter(processo => {
+            return String(processo.userId) === String(userId); // Convert both to strings for comparison
+        });
+        return userProcessos;
     } catch (error) {
         throw new Error(`Error fetching processo by user: ${error}`);
     }
@@ -26,7 +29,7 @@ const getProcessoByUser = async (userId) => {
 const insertProcesso = async (processoData) => {
     try {
         const result = await db.processos.insertOne(processoData);
-        return result.insertedId; // Retorna o ID do usuário inserido
+        return result.insertedId; // Retorna o ID do processo inserido
     } catch (error) {
         throw new Error(`Erro ao inserir processo: ${error}`);
     }

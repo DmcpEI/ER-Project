@@ -16,6 +16,17 @@ body {
   margin: 0;
 }
 
+.backgroundImg {
+  width: 100%;
+  min-height: 100%;
+  background-image: url(https://i.ibb.co/QfDyjzd/bandeirafullhd.jpg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  overflow-x: hidden;
+}
+
 .container {
   width: 20%;
   margin: auto;

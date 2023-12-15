@@ -15,6 +15,9 @@
         <% if (user.tipo == 'Aluno' || user.tipo == 'Regente') { %>
             <label class="col" onclick="location.href='http://localhost:3000/pautas';">Pautas Escolares</label>
         <% } %>
+        <% if (user.tipo == 'DC') { %>
+          <label class="col" onclick="location.href='http://localhost:3000/pautas';">Pautas de Colocados</label>
+        <% } %>
         <% if (user.tipo == 'Candidato') { %>
             <label class="col">Candidatura</label>
         <% } %>
@@ -110,13 +113,13 @@
 
     </form>
 
-    <% if(processos) { %>
+    <% if (processos) { %>
       <% processos.forEach(processo => { %>
-        <h1>Processo: <%= processo.pedido %> </h1>
+        <h1>Processo - <%= processo.pedido %></h1>
       <% }); %>
-    <% } else { %>
-      <p>No processos available.</p>
-    <% } %>    
+    <% } else {%>
+      <h1>Não existem processos acadêmicos</h1>
+    <% } %>
 
 </body>
 </html>
