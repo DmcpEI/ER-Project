@@ -2,60 +2,85 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="X-UA-Compatible" content="IE-edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SGAU | Painel</title>
     <link href="/pautas.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <div class="navbar">
-      <% if (user.tipo == 'Aluno' || user.tipo == 'Candidato' || user.tipo == 'DC' || user.tipo == 'AA' || user.tipo == 'PAA') { %>
-        <label class="col" onclick="location.href='http://localhost:3000/processos';">Processos</label>
-        <% } %>
-        <% if (user.tipo == 'Aluno' || user.tipo == 'Regente') { %>
-            <label class="col_sel">Pautas Escolares</label>
-        <% } %>
-        <% if (user.tipo == 'DC') { %>
-          <label class="col_sel">Pautas de Colocados</label>
-        <% } %>
-        <% if (user.tipo == 'Candidato') { %>
-            <label class="col">Candidatura</label>
-        <% } %>
-        <label class="col" onclick="location.href='http://localhost:3000/informacao';">Informação Pública</label>
-        <label class="col_log" onclick="location.href='http://localhost:3000/login';">Logout</label
+      <% if (user.tipo == 'Aluno' || user.tipo == 'Candidato' || user.tipo
+      =='DC' || user.tipo == 'AA' || user.tipo == 'PAA') { %>
+      <label
+        class="col"
+        onclick="location.href='http://localhost:3000/processos';"
+        >Processos</label
+      >
+      <% } %> <% if (user.tipo == 'Aluno' || user.tipo == 'Regente') { %>
+      <label
+        class="col_sel"
+        onclick="location.href='http://localhost:3000/pautas';"
+        >Pautas Escolares</label
+      >
+      <% } %> <% if (user.tipo == 'DC') { %>
+      <label
+        class="col_sel"
+        onclick="location.href='http://localhost:3000/pautas';"
+        >Pautas de Colocados</label
+      >
+      <% } %> <% if (user.tipo == 'Candidato') { %>
+      <label
+        class="col"
+        onclick="location.href='http://localhost:3000/candidatura';"
+        >Candidatura</label
+      >
+      <% } %>
+      <label
+        class="col"
+        onclick="location.href='http://localhost:3000/informacao';"
+        >Informação Pública</label
+      >
+      <label
+        class="col_log"
+        onclick="location.href='http://localhost:3000/login';"
+        >Logout</label
       >
     </div>
     <div>
-      <% if (user.tipo == 'Aluno' || user.tipo == 'Regente') { %>
-        <% if (pautas) { %>
-          <% pautas.forEach(pauta => { %>
-            <% if (pauta.tipoAvaliacao == 'Frequencia1') { %>
-              <label onclick="location.href='<%= pauta.documento %>';"> Notas da primeira frequência de <%= pauta.disciplina %> </label>
-            <% } else if (pauta.tipoAvaliacao == 'Frequencia2') { %>
-              <label onclick="location.href='<%= pauta.documento %>';"> Notas da segunda frequência de <%= pauta.disciplina %> </label>
-            <% } else if (pauta.tipoAvaliacao == 'Final') { %>
-              <label onclick="location.href='<%= pauta.documento %>';"> Notas finais de <%= pauta.disciplina %> </label>
-            <% } %>
-          <% }); %>
-        <% } else {%>
-          <h1>Não existem pautas escolares</h1>
-        <% } %>
-      <% } %>
-
-      <% if (user.tipo == 'DC') { %>
-        <% if (pautas) { %>
-          <% pautas.forEach(pauta => { %>
-            <label onclick="location.href='<%= pauta.documento %>';">Colocados da <%= pauta.tipoCurso %> de <%= pauta.curso %></label>
-          <% }); %>
-        <% } else {%>
-          <h1>Não existem pautas de colocados</h1>
-        <% } %>
-      <% } %>
+      <ul class="pautas">
+        <% if (user.tipo == 'Aluno' || user.tipo == 'Regente') { %> <% if
+        (pautas) { %> <% pautas.forEach(pauta => { %>
+        <li class="col" onclick="location.href='<%= pauta.documento %>';">
+          Notas da primeira frequência de <%= pauta.disciplina %>
+        </li>
+        <% }); %> <% } else {%>
+        <h1>Não existem pautas escolares</h1>
+        <% } %> <% } %> <% if (user.tipo == 'DC') { %> <% if (pautas) { %> <%
+        pautas.forEach(pauta => { %>
+        <li class="col" onclick="location.href='<%= pauta.documento %>';">
+          Colocados da <%= pauta.tipoCurso %> de <%= pauta.curso %>
+        </li>
+        <% }); %> <% } else {%>
+        <h1>Não existem pautas de colocados</h1>
+        <% } %> <% } %>
+      </ul>
     </div>
 
     <% if (user.tipo == 'Regente' || user.tipo == 'DC') { %>
-      <h1>Meter aqui form para adicionar uma pauta</h1>
+    <form action="" method="post">
+      <% if (user.tipo == 'Regente') { %>
+      <h1>Adicionar avaliação</h1>
+      <input type="text" name="disciplina" placeholder="Disciplina" />
+      <input type="text" name="tipoAvaliacao" placeholder="Tipo de avaliação" />
+      <input type="file" name="documento" />
+      <% } else { %>
+      <h1>Adicionar pauta</h1>
+      <input type="text" name="tipoCurso" placeholder="Tipo de curso" />
+      <input type="text" name="curso" placeholder="Curso" />
+      <input type="file" name="documento" />
+      <% } %>
+      <input type="submit" value="Adicionar" />
+    </form>
     <% } %>
-    
   </body>
 </html>
