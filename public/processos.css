@@ -15,6 +15,97 @@ body {
     color: grey;
   }
   
+.tab_active_start{
+  background: url(https://infoalunos.uma.pt/hydra/img/tabuladores/white_tabs/tab_active_start.gif) top left no-repeat #e4ebf4;
+    background-image: url(https://infoalunos.uma.pt/hydra/img/tabuladores/white_tabs/tab_active_start.gif);
+    background-position-x: left;
+    background-position-y: top;
+    background-size: initial;
+    background-repeat: no-repeat;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: rgb(228, 235, 244);
+  width: 9px;
+}
+
+.tab_active_bg{
+  background: url(https://infoalunos.uma.pt/hydra/img/tabuladores/white_tabs/tab_active_bg.gif) top left repeat-x #e4ebf4;
+    background-image: url(https://infoalunos.uma.pt/hydra/img/tabuladores/white_tabs/tab_active_bg.gif);
+    background-position-x: left;
+    background-position-y: top;
+    background-size: initial;
+    background-repeat: repeat-x;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: rgb(228, 235, 244);
+    padding-top: 2px;
+    font-weight: bolder;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.tab_active_end {
+  background: url(https://infoalunos.uma.pt/hydra/img/tabuladores/white_tabs/tab_active_end.gif) top left no-repeat #e4ebf4;
+  background-image: url(https://infoalunos.uma.pt/hydra/img/tabuladores/white_tabs/tab_active_end.gif);
+  background-position-x: left;
+  background-position-y: top;
+  background-size: initial;
+  background-repeat: no-repeat;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  background-color: rgb(228, 235, 244);
+  width: 9px;
+}
+
+.tab_inactive_start {
+  background: url(https://infoalunos.uma.pt/hydra/img/tabuladores/white_tabs/tab_inactive_start.gif) top left no-repeat #e4e4e4;
+  background-image: url(https://infoalunos.uma.pt/hydra/img/tabuladores/white_tabs/tab_inactive_start.gif);
+  background-position-x: left;
+  background-position-y: top;
+  background-size: initial;
+  background-repeat: no-repeat;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  background-color: rgb(228, 228, 228);
+  width: 9px;
+}
+
+.tab_inactive_bg {
+  background: url(https://infoalunos.uma.pt/hydra/img/tabuladores/white_tabs/tab_inactive_bg.gif) top left repeat-x #e4e4e4;
+  background-image: url(https://infoalunos.uma.pt/hydra/img/tabuladores/white_tabs/tab_inactive_bg.gif);
+  background-position-x: left;
+  background-position-y: top;
+  background-size: initial;
+  background-repeat: repeat-x;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  background-color: rgb(228, 228, 228);
+  padding-top: 2px;
+  font-weight: bolder;
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.tab_inactive_end {
+  background: url(https://infoalunos.uma.pt/hydra/img/tabuladores/white_tabs/tab_inactive_end.gif) top left no-repeat #e4e4e4;
+  background-image: url(https://infoalunos.uma.pt/hydra/img/tabuladores/white_tabs/tab_inactive_end.gif);
+  background-position-x: left;
+  background-position-y: top;
+  background-size: initial;
+  background-repeat: no-repeat;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  background-color: rgb(228, 228, 228);
+  width: 9px;
+}
+
   .col:hover {
     color: white;
     font-weight: bold;
