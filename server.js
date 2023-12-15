@@ -118,7 +118,8 @@ app.post('/processos', async (req, res) => {
         assunto: req.body.assunto,
         ficheiro: req.body.ficheiro,
         userId: req.body.userId,
-        estado: 'Submetido para validação'
+        estado: 'Submetido para validação',
+        mensagemEstado: ''
     };
 
     try{
