@@ -26,6 +26,47 @@
       >
     </div>
 
+    <% if(user.tipo == 'Aluno' || user.tipo == 'Candidato') {%>
+      <div>
+        <table width="100%"> 
+            <tbody>
+              <tr height="33">
+                <td width="9">
+                  <div style="width: 9px; height: 35px;"></div>
+                </td>
+                <td class="tab_active_start" nowrap width="9">
+                  <div style="width: 9px; height: 35px;"></div>
+                </td>
+                <td class="tab_active_bg" width="50%">
+                  <div align="center">Lista de Processos</div>
+                </td>
+                <td class="tab_active_end" width="9">
+                    <div style="width: 9px; height: 35px;"></div>
+                </td>
+                <td nowrap width="9">
+                  <div style="width: 9px; height: 35px;"></div>
+                </td>
+                <td width="50%">
+                  <div align="center">Submeter Novo Processo</div>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+  <% } else {%>
+    <div>
+      <table width="100%"> 
+          <tbody>
+            <tr height="60">
+              <td width="100%">
+                <div align="center"><font size="+3">Processos a Validar</font></div>
+              </td>
+            </tr>
+          </tbody>
+      </table>
+    </div>
+  <% } %>
+
     <% if(user.tipo == 'Aluno' || user.tipo == 'Candidato') { %>
       <form action="/processos" method="POST">
 
