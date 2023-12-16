@@ -10,29 +10,44 @@
   <body>
 
     <script>
-      function fillForm(curso, numeroAluno, entidade, anoLetivo, pedido, assunto, ficheiro) {
+      function fillForm(curso, numeroAluno, entidade, anoLetivo, pedido, assunto, candidatura) {
         document.getElementById('curso').value = curso;
         document.getElementById('numAluno').value = numeroAluno;
         document.getElementById('entidade').value = entidade;
         document.getElementById('anoLetivo').value = anoLetivo;
         document.getElementById('pedidos').value = pedido;
         document.getElementById('assunto').value = assunto;
-        document.getElementById('ficheiro').value = ficheiro;
+        document.getElementById('tipoCandidatura').value = candidatura;
+
+        document.getElementById('numAlunoC').value = numeroAluno;
+        document.getElementById('entidadeC').value = entidade;
+        document.getElementById('anoLetivoC').value = anoLetivo;
+        document.getElementById('pedidosC').value = pedido;
+        document.getElementById('assuntoC').value = assunto;
+        document.getElementById('tipoCandidaturaC').value = candidatura;
 
         document.getElementById('submit_btn').disabled = true;
-
-        console.log(ficheiros);
+        document.getElementById('submit_btnC').disabled = true;
       }
 
-      function fillFormNew(curso, numeroAluno, entidade, anoLetivo, pedido, assunto, ficheiro) {
+      function fillFormNew(curso, numeroAluno, entidade, anoLetivo, pedido, assunto, candidatura) {
         document.getElementById('curso').value = curso;
         document.getElementById('numAluno').value = numeroAluno;
         document.getElementById('entidade').value = entidade;
         document.getElementById('anoLetivo').value = anoLetivo;
         document.getElementById('pedidos').value = pedido;
         document.getElementById('assunto').value = assunto;
+        document.getElementById('tipoCandidatura').value = candidatura;
+
+        document.getElementById('numAlunoC').value = numeroAluno;
+        document.getElementById('entidadeC').value = entidade;
+        document.getElementById('anoLetivoC').value = anoLetivo;
+        document.getElementById('pedidosC').value = pedido;
+        document.getElementById('assuntoC').value = assunto;
+        document.getElementById('tipoCandidaturaC').value = candidatura;
 
         document.getElementById('submit_btn').disabled = false;
+        document.getElementById('submit_btnC').disabled = false;
 
         console.log("cliquei no novo");
       }
@@ -69,7 +84,7 @@
                   <label style="color: blue;">Criar novo processo</label> 
                 </li>
               <% processos.forEach(processo => { %>
-                <li id="processo_<%= processo._id %>" onclick="fillForm('<%= processo.curso %>', '<%= processo.numeroAluno %>', '<%= processo.entidade %>', '<%= processo.anoLetivo %>', '<%= processo.pedido %>', '<%= processo.assunto %>', '<%= processo.ficheiro %>')">
+                <li id="processo_<%= processo._id %>" onclick="fillForm('<%= processo.curso %>', '<%= processo.numeroAluno %>', '<%= processo.entidade %>', '<%= processo.anoLetivo %>', '<%= processo.pedido %>', '<%= processo.assunto %>', '<%= processo.tipoCandidatura %>')">
                   Processo: <%= processo.pedido %> <br>Estado: <label style="color: red;"><%= processo.estado %></label>
               </li>
               <% }); %>
@@ -135,29 +150,29 @@
 
               <div class="processos_form">
                 <label>Nome do Candidato: </label>
-                <input type="text" id="entidade" name="entidade" value = "<%= user.name %>" readonly/>
+                <input type="text" id="entidadeC" name="entidadeC" value = "<%= user.name %>" readonly/>
               </div>
               <div class="processos_form">
                 <label>Pedido: </label>
-                <input type="text" id="pedido" name="pedido" value = "Candidatura a curso" readonly/>
+                <input type="text" id="pedidoC" name="pedidoC" value = "Candidatura a curso" readonly/>
               </div>
               <div class="processos_form">
                 <label>Tipo de Candidatura: </label>
-                <select name="tipoCandidatura" id="tipoCandidatura">
+                <select id="tipoCandidatura" name="tipoCandidatura">
                   <option value="Mestrado">Mestrado</option>
                   <option value="Doutoramento">Doutoramento</option>
                 </select>
               </div>
               <div class="processos_form">
                 <label>Curso: </label>
-                <select name="curso" id="curso">
+                <select id="curso" name="curso">
                   <option value="Engenharia Informática">Engenharia Informática</option>
                   <option value="Engenharia Eletrónica">Engenharia Eletrónica</option>
                 </select>
               </div>
               <div class="processos_form">
                 <label>Assunto: </label>
-                <input style="margin-left: 10.6%; columns: 20;" type="textarea" id="assunto" name="assunto"/>
+                <input style="margin-left: 10.6%; columns: 20;" type="textarea" id="assuntoC" name="assuntoC"/>
               </div>
               <div class="processos_form">
                 <label>Anexar Documento: </label>
