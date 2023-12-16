@@ -112,18 +112,31 @@ app.get('/processos', async (req, res) => {
 //Criar um processo
 app.post('/processos', async (req, res) => {
     
-    const newProcesso = {
-        curso: req.body.curso,
-        numeroAluno: req.body.numAluno,
-        entidade: req.body.entidade,
-        anoLetivo: req.body.anoLetivo,
-        pedido: req.body.pedidos,
-        assunto: req.body.assunto,
-        ficheiro: req.body.ficheiro,
-        userId: req.body.userId,
-        estado: 'Submetido para validação',
-        mensagemEstado: ''
-    };
+    let newProcesso = null;
+
+    if(req.user.tipo == 'Aluno'){
+        newProcesso = {
+            curso: req.body.curso,
+            numeroAluno: req.body.numAluno,
+            entidade: req.body.entidade,
+            anoLetivo: req.body.anoLetivo,
+            pedido: req.body.pedidos,
+            assunto: req.body.assunto,
+            ficheiro: req.body.ficheiro,
+            userId: req.body.userId,
+            estado: 'Submetido para validação',
+        };
+    } else {
+        newProcesso = {
+            entidade: req.body.entidade,
+            pedido: 'Candidatura a curso',
+            tipoCandidatura: req.body.tipoCandidatura,
+            assunto: req.body.assunto,
+            ficheiro: req.body.ficheiro,
+            userId: req.body.userId,
+            estado: 'Submetido para validação',
+        };
+    }
 
     try{
         await insertProcesso(newProcesso);
@@ -135,8 +148,11 @@ app.post('/processos', async (req, res) => {
 
 app.get('/pautas', async (req, res) => {
     try {
-        if(req.user.tipo == 'Aluno' || req.user.tipo == 'Regente') {
+        if(req.user.tipo == 'Aluno') {
             const userPautas = await getPautaNotasByUser(req.user.disciplinas);
+            res.render('pautas.ejs', { user: req.user, pautas: userPautas });
+        } else if(req.user.tipo == 'Regente') {
+            const userPautas = await getPautaNotasByUser(req.user.disciplina);
             res.render('pautas.ejs', { user: req.user, pautas: userPautas });
         } else if(req.user.tipo == 'DC') {
             const userPautas = await getPautaByType('Colocados');
@@ -151,30 +167,28 @@ app.get('/pautas', async (req, res) => {
 
 //Criar uma pauta de notas
 app.post('/pautas', async (req, res) => {
-    
-    //Pode estar errado
+    let newPauta = null;
 
-    if(req.user.tipo == "Regente") {
-        const newPauta = {
+    if (req.user.tipo == "Regente") {
+        newPauta = {
             tipo: "Notas",
             disciplina: req.body.disciplina,
             documento: req.body.documento,
             tipoAvaliacao: req.body.tipoAvaliacao,
         };
-    } 
-    else{
-        const newPauta = {
+    } else {
+        newPauta = {
             tipo: "Colocados",
             curso: req.body.curso,
             documento: req.body.documento,
             tipoCurso: req.body.tipoCurso,
         };
-    }   
+    }
 
-    try{
+    try {
         await insertPautaNotas(newPauta);
         res.render('painel.ejs', { user: req.user });
-    }catch{
+    } catch (error) {
         res.status(500).send('Erro ao criar pauta');
     }
 });

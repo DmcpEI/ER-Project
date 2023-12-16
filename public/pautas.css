@@ -63,16 +63,11 @@ body {
 
 form {
   width: 1000px;
-  margin: 20px 20px;
+  margin: 20px auto; /* Defina as margens superiores e inferiores para centralizar o formulário */
   padding: 10px;
   border: 1px solid #ccc;
-  display: grid;
   border-radius: 5px;
   text-align: center;
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   background-color: rgb(200, 200, 200);
 }
 
@@ -92,7 +87,7 @@ input[type='text'] {
   margin-bottom: 10px;
 }
 
-input[type='file'] {
+select {
   width: 100%;
   padding: 6px 0px 6px 0px;
   border-radius: 5px;

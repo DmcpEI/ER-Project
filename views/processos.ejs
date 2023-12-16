@@ -9,7 +9,7 @@
   </head>
   <body>
     <div class="navbar">
-      <% if (user.tipo == 'Aluno' || user.tipo == 'Candidato' || user.tipo == 'DC' || user.tipo == 'AA' || user.tipo == 'PAA') { %>
+      <% if (user.tipo == 'Aluno' || user.tipo == 'DC' || user.tipo == 'AA' || user.tipo == 'PAA') { %>
           <label class="col_sel">Processos</label>
         <% } %>
         <% if (user.tipo == 'Aluno' || user.tipo == 'Regente') { %>
@@ -19,13 +19,16 @@
           <label class="col" onclick="location.href='http://localhost:3000/pautas';">Pautas de Colocados</label>
         <% } %>
         <% if (user.tipo == 'Candidato') { %>
-            <label class="col">Candidatura</label>
+            <label class="col_sel">Candidatura</label>
         <% } %>
         <label class="col" onclick="location.href='http://localhost:3000/informacao';">Informação Pública</label>
-        <label class="col_log border_log_out" onclick="location.href='http://localhost:3000/login';">Logout <%= user.name.split(' ')[0] %></label>
+        <label class="col_log" onclick="location.href='http://localhost:3000/login';">Logout <%= user.name.split(' ')[0] %></label>
     </div>
 
     <% if(user.tipo == 'Aluno' || user.tipo == 'Candidato') {%>
+
+      <br>
+
       <div width="100%" style="display: flex;">
         
         <div class="border_processos_historico">
@@ -34,7 +37,7 @@
             <ul>
               <% processos.forEach(processo => { %>
                 <li>
-                  Processo: <%= processo.pedido %> / Estado: <%= processo.estado %>
+                  Processo: <%= processo.pedido %> <br>Estado: <%= processo.estado %>
                 </li>
               <% }); %>
             </ul>
@@ -47,112 +50,96 @@
 
         <div class="border_criar_processo" width="80%">
 
-          <form action="/processos" method="POST">
+          <% if(user.tipo == 'Aluno') {%>
 
-            <div class="processos_form">
-              <label>Curso: </label>
-              <input
-                style="margin-left: 12.65%;"
-                type="text"
-                id="curso"
-                name="curso"
-                value = "<%= user.curso %>"
-                readonly
-                />
-            </div>
-      
-            <div class="processos_form">
-              <label>Número de aluno: </label>
-              <input
-                style="margin-left: 1.8%;"
-                type="text"
-                id="numAluno"
-                name="numAluno"
-                value = "<%= user.numeroAluno %>"
-                readonly
-                />
-            </div>
-      
-            <div class="processos_form">
-              <label>Entidade: </label>
-              <input
-                style="margin-left: 9.85%;"
-                type="text"
-                id="name"
-                name="entidade"
-                value = "<%= user.name %>"
-                readonly
-                />
-            </div>
-      
-            <div class="processos_form">
-              <label>Ano Lectivo: </label>
-              <input
-                style="margin-left: 7.15%;"
-                type="text"
-                id="anoLetivo"
-                name="anoLetivo"
-                value =""
-                required
-                />
-            </div>
-      
-            <div class="processos_form">
-              <label>Pedido: </label>
-              <select name = "pedidos" id="pedidos" required style="margin-left: 11.9%;">
-                <option value = ""> </option>
-                <option value="Alteração de Inscrição (por via de creditações)">Alteração de Inscrição (por via de creditações)</option>
-                <option value="Anulação de Matrícula/Inscrição">Anulação de Matrícula/Inscrição</option>
-                <option value="Anulação de Unidades Curriculares (Será recusado se existirem pautas lançadas)">Anulação de Unidades Curriculares (Será recusado se existirem pautas lançadas)</option>
-                <option value="Carta de agregação (Diploma) (150.00 Eur)">Carta de agregação (Diploma) (150.00 Eur)</option>
-                <option value="Certificado Aproveitamento  Escolar (10.00 Eur)">Certificado Aproveitamento  Escolar (10.00 Eur)</option>
-              </select>
-            </div>
-      
-            <div class="processos_form">
-              <label>Assunto: </label>
-              <input
-                style="margin-left: 10.6%; columns: 20;"
-                type="textarea"
-                id="assunto"
-                name="assunto"
-                value =""
-                />
-            </div>
-      
-            <div class="processos_form">
-              <label>Anexar Documento: </label>
-              <input
-                type="file"
-                id="ficheiro"
-                name="ficheiro"
-                value =""
-                />
-            </div>
-      
-            <input type="hidden" id="userId" name="userId" value ="<%= user._id %>">
-      
-            <div class="submit_form">
-              <button style="width: 100px; height: 40px; border-radius: 20px; background-color: #fe846f; color: #ffffff;" type="submit">Submeter</button>
-            </div> 
-      
-          </form>
+            <form action="/processos" method="POST">
 
+              <div class="processos_form">
+                <label>Curso: </label>
+                <input style="margin-left: 12.65%;" type="text" id="curso" name="curso" value = "<%= user.curso %>" readonly/>
+              </div>
+              <div class="processos_form">
+                <label>Número de aluno: </label>
+                <input style="margin-left: 1.8%;" type="text" id="numAluno" name="numAluno" value = "<%= user.numeroAluno %>" readonly/>
+              </div>
+              <div class="processos_form">
+                <label>Entidade: </label>
+                <input style="margin-left: 9.85%;" type="text" id="name" name="entidade" value = "<%= user.name %>" readonly/>
+              </div>
+              <div class="processos_form">
+                <label>Ano Lectivo: </label>
+                <input style="margin-left: 7.15%;" type="text" id="anoLetivo" name="anoLetivo" required/>
+              </div>
+              <div class="processos_form">
+                <label>Pedido: </label>
+                <select name = "pedidos" id="pedidos" required style="margin-left: 11.9%;">
+                  <option value = ""> </option>
+                  <option value="Alteração de Inscrição (por via de creditações)">Alteração de Inscrição (por via de creditações)</option>
+                  <option value="Anulação de Matrícula/Inscrição">Anulação de Matrícula/Inscrição</option>
+                  <option value="Anulação de Unidades Curriculares (Será recusado se existirem pautas lançadas)">Anulação de Unidades Curriculares (Será recusado se existirem pautas lançadas)</option>
+                  <option value="Carta de agregação (Diploma) (150.00 Eur)">Carta de agregação (Diploma) (150.00 Eur)</option>
+                  <option value="Certificado Aproveitamento  Escolar (10.00 Eur)">Certificado Aproveitamento  Escolar (10.00 Eur)</option>
+                </select>
+              </div>
+              <div class="processos_form">
+                <label>Assunto: </label>
+                <input style="margin-left: 10.6%; columns: 20;" type="textarea" id="assunto" name="assunto"/>
+              </div>
+              <div class="processos_form">
+                <label>Anexar Documento: </label>
+                <input type="file" id="ficheiro" name="ficheiro"/>
+              </div>
+        
+              <input type="hidden" id="userId" name="userId" value ="<%= user._id %>">
+        
+              <div class="submit_form">
+                <button type="submit">Submeter</button>
+              </div> 
+            </form>
+          <% } else {%>
+
+            <form action="/processos" method="POST">
+
+              <div class="processos_form">
+                <label>Nome do Candidato: </label>
+                <input type="text" id="name" name="entidade" value = "<%= user.name %>" readonly/>
+              </div>
+              <div class="processos_form">
+                <label>Pedido: </label>
+                <input type="text" id="pedido" name="pedido" value = "Candidatura a curso" readonly/>
+              </div>
+              <div class="processos_form">
+                <label>Tipo de Candidatura: </label>
+                <select name="tipoCandidatura" id="tipoCandidatura">
+                  <option value="Mestrado">Mestrado</option>
+                  <option value="Doutoramento">Doutoramento</option>
+                </select>
+              </div>
+              <div class="processos_form">
+                <label>Curso: </label>
+                <select name="curso" id="curso">
+                  <option value="Engenharia Informática">Engenharia Informática</option>
+                  <option value="Engenharia Eletrónica">Engenharia Eletrónica</option>
+                </select>
+              </div>
+              <div class="processos_form">
+                <label>Assunto: </label>
+                <input style="margin-left: 10.6%; columns: 20;" type="textarea" id="assunto" name="assunto"/>
+              </div>
+              <div class="processos_form">
+                <label>Anexar Documento: </label>
+                <input type="file" id="ficheiro" name="ficheiro"/>
+              </div>
+        
+              <input type="hidden" id="userId" name="userId" value ="<%= user._id %>">
+        
+              <div class="submit_form">
+                <button type="submit">Submeter</button>
+              </div> 
+            </form>
+          <% } %>
         </div>
-
       </div>
-
-    <!-- <% if (processos) { %>
-      <ul class="processos">
-        <% processos.forEach(processo => { %>
-          <li class="col">
-            Processo: <%= processo.pedido %> / Estado: <%= processo.estado %>
-          </li>
-        <% }); %>
-      </ul>
-    <% } else {%>
-      <h1>Não existem processos acadêmicos</h1>
-    <% } %> -->
 
     
   <% } else {%>
