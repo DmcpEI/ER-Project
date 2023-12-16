@@ -101,7 +101,7 @@ body {
   padding: 20px; /* Added padding for spacing */
   padding-bottom: 10px;
   border-radius: 10px; /* Added rounded corners */
-  list-style-type: none;
+  text-align: center;
 }
 
 .processos ul {
@@ -110,17 +110,23 @@ body {
 }
 
 .processos li {
-  text-align: center;
-  padding: 20px; /* Adjust padding as needed */
+  display: flex; /* Aligns items horizontally */
+  align-items: center; /* Aligns items vertically */
+  justify-content: space-between; /* Distributes items evenly */
+  padding: 15px; /* Adjust padding as needed */
   margin-bottom: 10px; /* Adds spacing between li elements */
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 20px; /* Adjust font size as needed */
-  cursor: pointer;
+  font-size: 18px; /* Adjust font size as needed */
 }
 
-.processos li:hover {
-  background-color: #f0f0f0; /* Adjust the hover background color */
+.hidden-radio {
+  display: none;
+}
+
+.hidden-radio:checked + .processos li {
+  background-color: lightblue;
+  /* Add other styles for checked state */
 }
 
 h1 {
@@ -129,4 +135,12 @@ h1 {
   margin-bottom: 20px;
   margin-top: 5%;
   font-size: 50px;
+}
+
+.buttonValidar {
+  width: 200px; 
+  height: 40px; 
+  border-radius: 20px; 
+  background-color: black; 
+  color: #ffffff;
 }
