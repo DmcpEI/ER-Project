@@ -112,18 +112,31 @@ app.get('/processos', async (req, res) => {
 //Criar um processo
 app.post('/processos', async (req, res) => {
     
-    const newProcesso = {
-        curso: req.body.curso,
-        numeroAluno: req.body.numAluno,
-        entidade: req.body.entidade,
-        anoLetivo: req.body.anoLetivo,
-        pedido: req.body.pedidos,
-        assunto: req.body.assunto,
-        ficheiro: req.body.ficheiro,
-        userId: req.body.userId,
-        estado: 'Submetido para validação',
-        mensagemEstado: ''
-    };
+    let newProcesso = null;
+
+    if(req.user.tipo == 'Aluno'){
+        newProcesso = {
+            curso: req.body.curso,
+            numeroAluno: req.body.numAluno,
+            entidade: req.body.entidade,
+            anoLetivo: req.body.anoLetivo,
+            pedido: req.body.pedidos,
+            assunto: req.body.assunto,
+            ficheiro: req.body.ficheiro,
+            userId: req.body.userId,
+            estado: 'Submetido para validação',
+        };
+    } else {
+        newProcesso = {
+            entidade: req.body.entidade,
+            pedido: 'Candidatura a curso',
+            tipoCandidatura: req.body.tipoCandidatura,
+            assunto: req.body.assunto,
+            ficheiro: req.body.ficheiro,
+            userId: req.body.userId,
+            estado: 'Submetido para validação',
+        };
+    }
 
     try{
         await insertProcesso(newProcesso);
