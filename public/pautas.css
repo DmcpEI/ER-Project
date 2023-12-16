@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  background-color: rgb(103, 105, 109);
 }
 
 .navbar {
@@ -32,37 +33,32 @@ body {
 }
 
 .pautas {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 500px;
+  margin: 0 auto; /* Centers the div horizontally */
   background-color: white;
+  padding: 20px; /* Added padding for spacing */
+  padding-bottom: 10px;
+  border-radius: 10px; /* Added rounded corners */
   list-style-type: none;
 }
 
 .pautas ul {
-  position: relative;
-  /* margin-top: 20px; */
-}
-
-.pautas .col {
-  text-align: center;
-  /* margin: 10px; */
-  width: 100%;
+  list-style-type: none;
+  padding: 0;
 }
 
 .pautas li {
   text-align: center;
-  padding: 30px;
+  padding: 20px; /* Adjust padding as needed */
+  margin-bottom: 10px; /* Adds spacing between li elements */
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 30px;
+  font-size: 20px; /* Adjust font size as needed */
   cursor: pointer;
 }
 
 .pautas li:hover {
-  background-color: #ccc;
+  background-color: #f0f0f0; /* Adjust the hover background color */
 }
 
 form {
@@ -111,4 +107,12 @@ input[type='submit'] {
   padding: 6px 0px 6px 0px;
   border-radius: 5px;
   font-size: 20px;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 5%;
+  font-size: 50px;
 }

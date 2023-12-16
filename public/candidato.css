@@ -65,6 +65,16 @@ button[type='submit'] {
 }
 
 a {
-  text-decoration: none;
-  color: #007bff;
+  display: block;
+  width: fit-content; /* Adjust the width as needed */
+  margin: 0 auto; /* Centers the block element horizontally */
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 20px;
+  text-align: center;
+  font-size: medium;
+  text-decoration: none; /* Optional: Removes default underline */
 }

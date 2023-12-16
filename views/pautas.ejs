@@ -47,6 +47,12 @@
       >
     </div>
     <div>
+      <% if(user.tipo == 'Aluno' || user.tipo == 'Regente') {%>
+        <h1>Pautas Escolares</h1>
+      <% } else {%>
+        <h1>Pautas de Colocados</h1>
+      <% } %>
+      <br>
       <ul class="pautas">
         <% if (user.tipo == 'Aluno' || user.tipo == 'Regente') { %> <% if
         (pautas) { %> <% pautas.forEach(pauta => { %>
