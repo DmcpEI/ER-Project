@@ -51,17 +51,24 @@
     </div>
 
     <% if (user.tipo == 'Regente' || user.tipo == 'DC') { %>
-    <form action="" method="post">
+    <form action="/pautas" method="POST">
       <% if (user.tipo == 'Regente') { %>
       <h1>Adicionar avaliação</h1>
-      <input type="text" name="disciplina" placeholder="Disciplina" />
-      <input type="text" name="tipoAvaliacao" placeholder="Tipo de avaliação" />
-      <input type="file" name="documento" />
+      <input type="text" name="disciplina" placeholder="Disciplina" value="<%= user.disciplina %>" readonly/>
+      <select name="tipoAvaliacao" id="tipoAvaliacao">
+        <option value="Frequencia1">1ª Frequência</option>
+        <option value="Frequencia2">2ª Frequência</option>
+        <option value="Final">Nota Final</option>
+      </select>
+      <input type="text" name="documento" placeholder="Link de documento" />
       <% } else { %>
       <h1>Adicionar pauta</h1>
-      <input type="text" name="tipoCurso" placeholder="Tipo de curso" />
-      <input type="text" name="curso" placeholder="Curso" />
-      <input type="file" name="documento" />
+      <select name="tipoCurso" id="tipoCurso">
+        <option value="Licenciatura">Licenciatura</option>
+        <option value="Mestrado">Mestrado</option>
+      </select>
+      <input type="text" name="curso" placeholder="Curso" value="<%= user.curso %>" readonly/>
+      <input type="text" name="documento" placeholder="Link de documento" />
       <% } %>
       <input type="submit" value="Adicionar" />
     </form>

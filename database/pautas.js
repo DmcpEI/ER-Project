@@ -35,11 +35,20 @@ const getPautaByDisciplina= async (disciplina) => {
 
 const getPautaNotasByUser = async (userDisciplinas) => {
     try {
-        const pautasPromises = userDisciplinas.map(async (disciplina) => {
-            return await db.pautas.find({ disciplina: disciplina }).toArray();
-        });
+        let pautas = [];
+        
+        if (Array.isArray(userDisciplinas)) {
+            const pautasPromises = userDisciplinas.map(async (disciplina) => {
+                return await db.pautas.find({ disciplina: disciplina }).toArray();
+            });
 
-        const pautas = await Promise.all(pautasPromises);
+            pautas = await Promise.all(pautasPromises);
+        } else if (typeof userDisciplinas === 'string') {
+            pautas = await db.pautas.find({ disciplina: userDisciplinas }).toArray();
+        } else {
+            throw new Error('Invalid input for userDisciplinas');
+        }
+
         return pautas.flat(); // Retorna um array único com todas as pautas das disciplinas
     } catch (error) {
         throw new Error(`Error fetching pauta by disciplina: ${error}`);
