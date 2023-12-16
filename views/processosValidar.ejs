@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SGAU | Processos</title>
+    <link href="/processos.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="navbar">
+      <% if (user.tipo == 'Aluno' || user.tipo == 'DC' || user.tipo == 'AA' || user.tipo == 'PAA') { %>
+          <label class="col_sel">Processos</label>
+        <% } %>
+        <% if (user.tipo == 'Aluno' || user.tipo == 'Regente') { %>
+          <label class="col" onclick="location.href='http://localhost:3000/pautas';">Pautas Escolares</label>
+        <% } %>
+        <% if (user.tipo == 'DC') { %>
+          <label class="col" onclick="location.href='http://localhost:3000/pautas';">Pautas de Colocados</label>
+        <% } %>
+        <% if (user.tipo == 'Candidato') { %>
+            <label class="col_sel">Candidatura</label>
+        <% } %>
+        <label class="col" onclick="location.href='http://localhost:3000/informacao';">Informação Pública</label>
+        <label class="col_log" onclick="location.href='http://localhost:3000/login';">Logout <%= user.name.split(' ')[0] %></label>
+    </div>
+
+    <form action="/processoValidar" method="POST">
+        <h1>Validar Processo</h1>
+        <input type="text" name="disciplina" placeholder="Disciplina" value="<%= user.disciplina %>" readonly/>
+        <input type="text" name="documento" placeholder="Link de documento" />
+
+        <select name="estado" id="tipoAvaliacao">
+            <option value="Completo">Validar Processo</option>
+            <option value="Submetido para validação do DC">Submeter para validação do DC</option>
+            <option value="Submetido para validação do PresidenteAA">Submeter para validação do Presidente dos Assuntos Académicos</option>
+            <option value="Rejeitado">Rejeitar Processo</option>
+        </select>
+
+        <input type="submit" value="Adicionar" />
+      </form>
+</body>
+</html>
