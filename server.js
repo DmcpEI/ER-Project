@@ -85,8 +85,8 @@ app.post('/candidato', async (req, res) => {
 
 // Serve the candidato file
 app.get('/informacao', async (req, res) => {
-    //Falta funções de buscar pautas
-    res.render('informacaoPublica.ejs');
+    const pautas = await getPautaByType('Colocados');
+    res.render('informacaoPublica.ejs', { pautas: pautas });
 });
 
 app.get('/processos', async (req, res) => {
