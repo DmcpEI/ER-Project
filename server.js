@@ -10,7 +10,7 @@ const session = require('express-session')
 
 const { insertUser } = require('./database/users')
 const { insertPautaNotas, getPautaNotasByUser, getPautaByType } = require('./database/pautas')
-const { insertProcesso, getProcessoByUser, getAllProcessos, getProcessoById } = require('./database/processos');
+const { insertProcesso, getProcessoByUser, getAllProcessos, getProcessoById, updateProcessoEstadoById } = require('./database/processos');
 
 const initializePassport = require('./passport-config');
 initializePassport(passport)
@@ -109,6 +109,7 @@ app.get('/processos', async (req, res) => {
     }
 });
 
+//Ir para a página de validar processos
 app.post('/processosValidar', async (req, res) => {
     try {
         const processo = await getProcessoById(req.body.processoId);
@@ -117,6 +118,24 @@ app.post('/processosValidar', async (req, res) => {
         // Lidar com erros se a obtenção dos processos falhar
         console.error(error);
         res.status(500).send('Erro ao buscar processo');
+    }
+});
+
+app.post('/processoValidar', async (req, res) => {
+    try {
+        const processoId = req.body.processoId;
+        const newEstado = req.body.estado;
+
+        // Check if processoId and newEstado exist in the request body
+        if (!processoId || !newEstado) {
+            return res.status(400).send('Processo ID or Estado missing in request body');
+        }
+
+        await updateProcessoEstadoById(processoId, newEstado);
+        res.render('painel.ejs', { user: req.user });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erro ao validar processo');
     }
 });
 
@@ -140,6 +159,7 @@ app.post('/processos', async (req, res) => {
     } else {
         newProcesso = {
             entidade: req.body.entidade,
+            curso: req.body.curso,
             pedido: 'Candidatura a curso',
             tipoCandidatura: req.body.tipoCandidatura,
             assunto: req.body.assunto,

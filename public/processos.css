@@ -101,6 +101,7 @@ body {
   padding: 20px; /* Added padding for spacing */
   padding-bottom: 10px;
   border-radius: 10px; /* Added rounded corners */
+  text-align: center;
 }
 
 .processos ul {
@@ -117,11 +118,6 @@ body {
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 18px; /* Adjust font size as needed */
-  cursor: pointer;
-}
-
-.processos li:hover {
-  background-color: #f0f0f0; /* Adjust the hover background color */
 }
 
 .hidden-radio {
@@ -139,4 +135,12 @@ h1 {
   margin-bottom: 20px;
   margin-top: 5%;
   font-size: 50px;
+}
+
+.buttonValidar {
+  width: 200px; 
+  height: 40px; 
+  border-radius: 20px; 
+  background-color: black; 
+  color: #ffffff;
 }

@@ -188,32 +188,26 @@
       <form action="/processosValidar" method="POST">
         <ul class="processos">
           <% processos.forEach(processo => { %>
-            <% if(user.tipo == "AA" && (processo.estado == "Submetido para validação" || processo.estado == "Retornado para revisão")) {%>
+            <% if(user.tipo == "AA" && (processo.estado == "Submetido para validação" || processo.estado == "Retornado para revisão" || processo.estado == "Validado por PAA" || processo.estado == "Validado por DC")) {%>
+              <input type="radio" id="processoId" name="processoId" value="<%= processo._id %>">
               <li>
-                <input type="radio" id="processoId" name="processoId" value="<%= processo._id %>" class="hidden-radio">
-                <label for="processoId">
-                  Processo de "<%= processo.pedido %>" <br>Estado: <%= processo.estado %>
-                </label>
+                Processo de "<%= processo.pedido %>" <br>Estado: <%= processo.estado %>
               </li>
             <% } %> 
             <% if(user.tipo == "DC" && processo.estado == "Submetido para validação do DC" && processo.curso == user.curso) {%>
+              <input type="radio" id="processoId" name="processoId" value="<%= processo._id %>">
               <li>
-                <input type="radio" id="processoId" name="processoId" value="<%= processo._id %>" class="hidden-radio">
-                <label for="processoId">
-                  Processo de "<%= processo.pedido %>" <br>Estado: <%= processo.estado %>
-                </label>
+                Processo de "<%= processo.pedido %>" <br>Estado: <%= processo.estado %>
               </li>
             <% } %> 
             <% if(user.tipo == "PAA" && processo.estado == "Submetido para validação do PresidenteAA") {%>
+              <input type="radio" id="processoId" name="processoId" value="<%= processo._id %>">
               <li>
-                <input type="radio" id="processoId" name="processoId" value="<%= processo._id %>" class="hidden-radio">
-                <label for="processoId">
-                  Processo de "<%= processo.pedido %>" <br>Estado: <%= processo.estado %>
-                </label>
+                Processo de "<%= processo.pedido %>" <br>Estado: <%= processo.estado %>
               </li>
             <% } %>
           <% }); %>
-          <button type="submit">Submit</button>
+          <button type="submit" class="buttonValidar">Submit</button>
         </ul>
       </form>
     <% } else {%>

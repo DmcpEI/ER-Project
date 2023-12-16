@@ -1,0 +1,84 @@
+body {
+    margin: 0;
+    background-color: rgb(103, 105, 109);
+  }
+  
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 25px;
+  height: 75px;
+  background-color: rgb(45, 46, 48);
+}
+
+.navbar .col {
+  color: grey;
+}
+
+.navbar .col:hover {
+  color: white;
+  font-weight: bold;
+  background-color: grey;
+  border: 3px solid grey;
+  border-radius: 10px;
+}
+
+.navbar .col_sel {
+  color: white;
+}
+
+.navbar .col_log {
+  color: red;
+}
+
+form {
+    width: 1000px;
+    margin: 20px auto; /* Defina as margens superiores e inferiores para centralizar o formulário */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    background-color: rgb(200, 200, 200);
+  }
+  
+  .form h1 {
+    font-family: sans-serif;
+    font-size: 30px;
+    color: black;
+    margin-bottom: 20px;
+  }
+  
+  input[type='text'] {
+    width: 100%;
+    padding: 6px 0px 6px 0px;
+    border-radius: 5px;
+    color: black;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  select {
+    width: 100%;
+    padding: 6px 0px 6px 0px;
+    border-radius: 5px;
+    color: black;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  input[type='submit'] {
+    background-color: black;
+    color: white;
+    padding: 6px 0px 6px 0px;
+    border-radius: 5px;
+    font-size: 20px;
+  }
+  
+  h1 {
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 5%;
+    font-size: 50px;
+  }
