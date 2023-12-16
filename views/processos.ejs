@@ -53,6 +53,105 @@
             </tbody>
         </table>
     </div>
+
+    <% if (processos) { %>
+      <ul class="processos">
+        <% processos.forEach(processo => { %>
+          <li class="col">
+            Processo: <%= processo.pedido %> / Estado: <%= processo.estado %>
+          </li>
+        <% }); %>
+      </ul>
+    <% } else {%>
+      <h1>Não existem processos acadêmicos</h1>
+    <% } %>
+
+    <form action="/processos" method="POST">
+
+      <div>
+        <label>Curso: </label>
+        <input
+          type="text"
+          id="curso"
+          name="curso"
+          value = "<%= user.curso %>"
+          
+          />
+      </div>
+
+      <div>
+        <label>Número de aluno: </label>
+        <input
+          type="text"
+          id="numAluno"
+          name="numAluno"
+          value = "<%= user.numeroAluno %>"
+          
+          />
+      </div>
+
+      <div>
+        <label>Entidade: </label>
+        <input
+          type="text"
+          id="name"
+          name="entidade"
+          value = "<%= user.name %>"
+          
+          />
+      </div>
+
+      <div>
+        <label>Ano Lectivo: </label>
+        <input
+          type="text"
+          id="anoLetivo"
+          name="anoLetivo"
+          value =""
+          required
+          />
+      </div>
+
+      <div>
+        <label>Pedido: </label>
+        <select name = "pedidos" id="pedidos" required>
+          <option value = ""> </option>
+          <option value="Alteração de Inscrição (por via de creditações)">Alteração de Inscrição (por via de creditações)</option>
+          <option value="Anulação de Matrícula/Inscrição">Anulação de Matrícula/Inscrição</option>
+          <option value="Anulação de Unidades Curriculares (Será recusado se existirem pautas lançadas)">Anulação de Unidades Curriculares (Será recusado se existirem pautas lançadas)</option>
+          <option value="Carta de agregação (Diploma) (150.00 Eur)">Carta de agregação (Diploma) (150.00 Eur)</option>
+          <option value="Certificado Aproveitamento  Escolar (10.00 Eur)">Certificado Aproveitamento  Escolar (10.00 Eur)</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Assunto: </label>
+        <input
+          type="textarea"
+          id="assunto"
+          name="assunto"
+          rows = 5
+          value =""
+          />
+      </div>
+
+      <div>
+        <label>Anexar Documento: </label>
+        <input
+          type="file"
+          id="ficheiro"
+          name="ficheiro"
+          value =""
+          />
+      </div>
+
+      <input type="hidden" id="userId" name="userId" value ="<%= user._id %>">
+
+      <div>
+        <button type="submit">Submeter</button>
+      </div>
+
+    </form>
   <% } else {%>
     <div>
       <table width="100%"> 
@@ -65,112 +164,32 @@
           </tbody>
       </table>
     </div>
-  <% } %>
-
-    <% if(user.tipo == 'Aluno' || user.tipo == 'Candidato') { %>
-      <form action="/processos" method="POST">
-
-        <div>
-          <label>Curso: </label>
-          <input
-            type="text"
-            id="curso"
-            name="curso"
-            value = "<%= user.curso %>"
-            
-            />
-        </div>
-
-        <div>
-          <label>Número de aluno: </label>
-          <input
-            type="text"
-            id="numAluno"
-            name="numAluno"
-            value = "<%= user.numeroAluno %>"
-            
-            />
-        </div>
-
-        <div>
-          <label>Entidade: </label>
-          <input
-            type="text"
-            id="name"
-            name="entidade"
-            value = "<%= user.name %>"
-            
-            />
-        </div>
-
-        <div>
-          <label>Ano Lectivo: </label>
-          <input
-            type="text"
-            id="anoLetivo"
-            name="anoLetivo"
-            value =""
-            required
-            />
-        </div>
-
-        <div>
-          <label>Pedido: </label>
-          <select name = "pedidos" id="pedidos" required>
-            <option value = ""> </option>
-            <option value="Alteração de Inscrição (por via de creditações)">Alteração de Inscrição (por via de creditações)</option>
-            <option value="Anulação de Matrícula/Inscrição">Anulação de Matrícula/Inscrição</option>
-            <option value="Anulação de Unidades Curriculares (Será recusado se existirem pautas lançadas)">Anulação de Unidades Curriculares (Será recusado se existirem pautas lançadas)</option>
-            <option value="Carta de agregação (Diploma) (150.00 Eur)">Carta de agregação (Diploma) (150.00 Eur)</option>
-            <option value="Certificado Aproveitamento  Escolar (10.00 Eur)">Certificado Aproveitamento  Escolar (10.00 Eur)</option>
-          </select>
-        </div>
-
-        <div>
-          <label>Assunto: </label>
-          <input
-            type="textarea"
-            id="assunto"
-            name="assunto"
-            rows = 5
-            value =""
-            />
-        </div>
-
-        <div>
-          <label>Anexar Documento: </label>
-          <input
-            type="file"
-            id="ficheiro"
-            name="ficheiro"
-            value =""
-            />
-        </div>
-
-        <input type="hidden" id="userId" name="userId" value ="<%= user._id %>">
-
-        <div>
-          <button type="submit">Submeter</button>
-        </div>
-
-      </form>
-    <% }; %>
 
     <% if (processos) { %>
-      <% processos.forEach(processo => { %>
-        <% if(user.tipo == "AA" && (processo.estado == "Submetido para validação" || processo.estado == "Retornado para revisão")) {%>
-        <h1>Processo: <%= processo.pedido %> / Estado: <%= processo.estado %></h1>
-        <% } %>
-        <% if(user.tipo == "DC" && processo.estado == "Submetido para validação do DC" && processo.curso == user.curso) {%>
-        <h1>Processo DC: <%= processo.pedido %> / Estado: <%= processo.estado %> / Curso: <%= processo.curso %></h1>
-        <% } %>
-        <% if(user.tipo == "PAA" && processo.estado == "Submetido para validação do PresidenteAA") {%>
-        <h1>Processo PAA: <%= processo.pedido %> / Estado: <%= processo.estado %></h1>
-        <% } %>
-      <% }); %>
+      <ul class="processos">
+        <% processos.forEach(processo => { %>
+          <% if(user.tipo == "AA" && (processo.estado == "Submetido para validação" || processo.estado == "Retornado para revisão")) {%>
+            <li class="col">
+              Processo: <%= processo.pedido %> / Estado: <%= processo.estado %>
+            </li>
+          <% } %> 
+          <% if(user.tipo == "DC" && processo.estado == "Submetido para validação do DC" && processo.curso == user.curso) {%>
+            <li class="col">
+              Processo DC: <%= processo.pedido %> / Estado: <%= processo.estado %> / Curso: <%= processo.curso %>
+            </li>
+          <% } %> 
+          <% if(user.tipo == "PAA" && processo.estado == "Submetido para validação do PresidenteAA") {%>
+            <li class="col">
+              Processo PAA: <%= processo.pedido %> / Estado: <%= processo.estado %>
+            </li>
+          <% } %>
+        <% }); %>
+      </ul>
     <% } else {%>
       <h1>Não existem processos acadêmicos</h1>
     <% } %>
+
+  <% } %>
 
 </body>
 </html>
