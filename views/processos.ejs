@@ -10,18 +10,21 @@
   <body>
 
     <script>
-      function fillForm(curso, numeroAluno, entidade, anoLetivo, pedido, assunto) {
+      function fillForm(curso, numeroAluno, entidade, anoLetivo, pedido, assunto, ficheiro) {
         document.getElementById('curso').value = curso;
         document.getElementById('numAluno').value = numeroAluno;
         document.getElementById('entidade').value = entidade;
         document.getElementById('anoLetivo').value = anoLetivo;
         document.getElementById('pedidos').value = pedido;
         document.getElementById('assunto').value = assunto;
+        document.getElementById('ficheiro').value = ficheiro;
 
         document.getElementById('submit_btn').disabled = true;
+
+        console.log(ficheiros);
       }
-      
-      function fillFormNew(curso, numeroAluno, entidade, anoLetivo, pedido, assunto) {
+
+      function fillFormNew(curso, numeroAluno, entidade, anoLetivo, pedido, assunto, ficheiro) {
         document.getElementById('curso').value = curso;
         document.getElementById('numAluno').value = numeroAluno;
         document.getElementById('entidade').value = entidade;
@@ -30,9 +33,10 @@
         document.getElementById('assunto').value = assunto;
 
         document.getElementById('submit_btn').disabled = false;
+
+        console.log("cliquei no novo");
       }
-  </script>
-  
+    </script>
 
     <div class="navbar">
       <% if (user.tipo == 'Aluno' || user.tipo == 'DC' || user.tipo == 'AA' || user.tipo == 'PAA') { %>
@@ -131,7 +135,7 @@
 
               <div class="processos_form">
                 <label>Nome do Candidato: </label>
-                <input type="text" id="name" name="entidade" value = "<%= user.name %>" readonly/>
+                <input type="text" id="entidade" name="entidade" value = "<%= user.name %>" readonly/>
               </div>
               <div class="processos_form">
                 <label>Pedido: </label>
@@ -163,7 +167,7 @@
               <input type="hidden" id="userId" name="userId" value ="<%= user._id %>">
         
               <div class="submit_form">
-                <button type="submit">Submeter</button>
+                <button type="submit" id="submit_btn">Submeter</button>
               </div> 
             </form>
           <% } %>
