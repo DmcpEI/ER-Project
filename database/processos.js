@@ -35,9 +35,21 @@ const insertProcesso = async (processoData) => {
     }
 };
 
+const updateProcessoEstadoById = async (processoId, newEstado) => {
+    try {
+        await db.processos.updateOne(
+            { _id: new ObjectId(processoId) },
+            { $set: { estado: newEstado } }
+        );
+    } catch (error) {
+        throw new Error(`Error updating processo estado: ${error}`);
+    }
+};
+
 module.exports = {
     getAllProcessos,
     getProcessoById,
     getProcessoByUser,
-    insertProcesso
+    insertProcesso,
+    updateProcessoEstadoById
 }
