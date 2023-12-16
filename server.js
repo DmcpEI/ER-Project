@@ -10,7 +10,7 @@ const session = require('express-session')
 
 const { insertUser } = require('./database/users')
 const { insertPautaNotas, getPautaNotasByUser, getPautaByType } = require('./database/pautas')
-const { insertProcesso, getProcessoByUser, getAllProcessos } = require('./database/processos');
+const { insertProcesso, getProcessoByUser, getAllProcessos, getProcessoById } = require('./database/processos');
 
 const initializePassport = require('./passport-config');
 initializePassport(passport)
@@ -106,6 +106,17 @@ app.get('/processos', async (req, res) => {
         // Lidar com erros se a obtenção dos processos falhar
         console.error(error);
         res.status(500).send('Erro ao buscar processos');
+    }
+});
+
+app.post('/processosValidar', async (req, res) => {
+    try {
+        const processo = await getProcessoById(req.body.processoId);
+        res.render('processosValidar.ejs', { user: req.user, processo: processo });
+    } catch (error) {
+        // Lidar com erros se a obtenção dos processos falhar
+        console.error(error);
+        res.status(500).send('Erro ao buscar processo');
     }
 });
 
