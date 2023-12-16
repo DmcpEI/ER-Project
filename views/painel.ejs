@@ -23,8 +23,7 @@
       <label class="col">Candidatura</label>
       <% } %>
       <label class="col" onclick="location.href='http://localhost:3000/informacao';">Informação Pública</label>
-      <label class="col_log" onclick="location.href='http://localhost:3000/login';">Logout</label
-      >
+      <label class="col_log" onclick="location.href='http://localhost:3000/login';">Logout <%= user.name.split(' ')[0] %></label>
     </div>
   </body>
 

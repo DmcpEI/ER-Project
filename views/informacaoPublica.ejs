@@ -5,79 +5,65 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SGAU | Informação Pública</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="informacaoPublica.css" rel="stylesheet" />
 </head>
-<body class="bg-light">
-    <div class="container py-5">
-        <h1 class="mt-4 outlined-title">Informações Públicas</h1>
-        <h2 class="mt-4 outlined-title">Colocações:</h2>
-        <h3 class="mt-4 outlined-title">Licenciatura para dentista e sapateiro</h3>
-        <div class="table-responsive">
-            <table class="table table-bordered table-striped mt-3 table-white-bg">
-                <thead class="table-dark">
-                  <tr>
-                    <th>Candidato</th>
-                    <th>Resultado</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Juan José Onroc Osnam</td>
-                    <td class="text-success">Colocado</td>
-                  </tr>
-                  <tr>
-                    <td>José Lannate do Farrobo</td>
-                    <td class="text-success">Colocado</td>
-                  </tr>
-                  <tr>
-                    <td>Cuca Miguel Santos Beludo</td>
-                    <td class="text-success">Colocado</td>
-                  </tr>
-                  <tr>
-                    <td>Ana Luísa Cacho Paula</td>
-                    <td class="text-danger">Não Colocado</td>
-                  </tr>
-                  <tr>
-                    <td>Teodora Yaris Klein Rodas</td>
-                    <td class="text-success">Colocado</td>
-                  </tr>
-                  <tr>
-                    <td>Maria Inês Bettencourt Papseco</td>
-                    <td class="text-danger">Não Colocado</td>
-                  </tr>
-                  <tr>
-                    <td>Mariana Isabel Monteiro Perado</td>
-                    <td class="text-success">Colocado</td>
-                  </tr>
-                  <tr>
-                    <td>Valdemar Miranda Megane de Sousa</td>
-                    <td class="text-danger">Não Colocado</td>
-                  </tr>
-                  <tr>
-                    <td>Marcelino Sulfato Foiçe Machado</td>
-                    <td class="text-danger">Não Colocado</td>
-                  </tr>
-                  <tr>
-                    <td>Paulo Guilherme Corolla Betume</td>
-                    <td class="text-success">Colocado</td>
-                  </tr>
-                  <tr>
-                    <td>Gustavo Alexandre Cambota Pistão</td>
-                    <td class="text-success">Colocado</td>
-                  </tr>
-                  <tr>
-                    <td>Miguel Roberto Ratibom Extraforte</td>
-                    <td class="text-danger">Não Colocado</td>
-                  </tr>
-                  <tr>
-                    <td>David Oreiva Crocs Agoy</td>
-                    <td class="text-success">Colocado</td>
-                  </tr>
-                </tbody>
-              </table>
-        </div>
-        <a href="/" class="btn btn-primary mt-3">Back</a>
+<% if(user) {%>
+  <body class="bodyComLogin">
+    <div class="navbar">
+      <% if (user.tipo == 'Aluno' || user.tipo == 'Candidato' || user.tipo == 'DC' || user.tipo == 'AA' || user.tipo == 'PAA') { %>
+        <label class="col" onclick="location.href='http://localhost:3000/processos';">Processos</label>
+      <% } %>
+      <% if (user.tipo == 'Aluno' || user.tipo == 'Regente') { %>
+        <label class="col" onclick="location.href='http://localhost:3000/pautas';">Pautas Escolares</label>
+      <% } %>
+      <% if (user.tipo == 'DC') { %>
+        <label class="col" onclick="location.href='http://localhost:3000/pautas';">Pautas de Colocados</label>
+      <% } %>
+      <% if (user.tipo == 'Candidato') { %>
+        <label class="col">Candidatura</label>
+      <% } %>
+      <label class="col_sel" onclick="location.href='http://localhost:3000/informacao';">Informação Pública</label>
+      <label class="col_log" onclick="location.href='http://localhost:3000/login';">Logout <%= user.name.split(' ')[0] %></label>
     </div>
-</body>
+
+    <div>
+      <h1>Informação Pública</h1>
+    </div>
+    <br>
+
+    <ul class="informacoes">
+      <% if(pautas) { %> 
+        <% pautas.forEach(pauta => { %>
+          <li class="col" onclick="location.href='<%= pauta.documento %>';">
+            Colocados da <%= pauta.tipoCurso %> de <%= pauta.curso %>
+          </li>
+        <% }); %> 
+      <% } else {%>
+        <h1>Não existem pautas de colocados</h1>
+      <% } %> 
+    </ul>
+    
+  </body>
+<% } else {%>
+  <body class="bodySemLogin">
+
+    <div>
+      <h1 color="black">Informação Pública</h1>
+    </div>
+    <br>
+
+    <ul class="informacoes">
+      <% if(pautas) { %> 
+        <% pautas.forEach(pauta => { %>
+          <li class="col" onclick="location.href='<%= pauta.documento %>';">
+            Colocados da <%= pauta.tipoCurso %> de <%= pauta.curso %>
+          </li>
+        <% }); %> 
+      <% } else {%>
+        <h1>Não existem pautas de colocados</h1>
+      <% } %> 
+    </ul>
+
+  </body>
+<% } %>
 </html>
