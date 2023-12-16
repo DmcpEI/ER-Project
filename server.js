@@ -83,10 +83,13 @@ app.post('/candidato', async (req, res) => {
 
 });
 
-// Serve the candidato file
 app.get('/informacao', async (req, res) => {
     const pautas = await getPautaByType('Colocados');
-    res.render('informacaoPublica.ejs', { pautas: pautas });
+    res.render('informacaoPublica.ejs', { user: req.user, pautas: pautas });
+});
+app.get('/informacaoIndex', async (req, res) => {
+    const pautas = await getPautaByType('Colocados');
+    res.render('informacaoPublica.ejs', { user: null, pautas: pautas });
 });
 
 app.get('/processos', async (req, res) => {
