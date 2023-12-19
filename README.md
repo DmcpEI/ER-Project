@@ -1,4 +1,4 @@
-# ER-Project: Sistema de Gestão de Pautas
+# ER-Project: Sistema de Gestão Administrativa de Universidades
 
 ## Procedimentos
 
