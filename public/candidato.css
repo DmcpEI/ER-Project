@@ -39,16 +39,28 @@ h1 {
 label {
   display: block;
   margin-bottom: 5px;
+  text-align: center;
+  font-size: larger;
 }
 
 input[type='text'],
-input[type='password'] {
+input[type='password']{
   width: 95%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 10px;
   outline: none;
   height: 20px;
+  font-size: large;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  outline: none;
+  height: 50px;
   font-size: large;
 }
 

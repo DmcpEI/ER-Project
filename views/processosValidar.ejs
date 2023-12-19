@@ -39,6 +39,7 @@
 
                 <%if(user.tipo == 'AA') {%>
                     <select name="estado" id="estado">
+                        <option value=""> </option>
                         <option value="Completo">Validar Processo</option>
                         <option value="Submetido para validação do DC">Submeter para validação do DC</option>
                         <option value="Submetido para validação do PresidenteAA">Submeter para validação do Presidente dos Assuntos Académicos</option>
@@ -47,12 +48,14 @@
                 <% } %>
                 <%if(user.tipo == 'DC') {%>
                     <select name="estado" id="estado">
+                        <option value=""> </option>
                         <option value="Validado por DC">Valida e enviar aos Assuntos Académicos</option>
                         <option value="Retornado para revisão">Retornar o processo aos Assuntos Académicos</option>
                     </select>
                 <% } %>    
                 <%if(user.tipo == 'PAA') {%>
                     <select name="estado" id="estado">
+                        <option value=""> </option>
                         <option value="Validado por PAA">Valida e enviar aos Assuntos Académicos</option>
                         <option value="Retornado para revisão">Retornar o processo aos Assuntos Académicos</option>
                     </select>
@@ -76,6 +79,7 @@
         
                 <%if(user.tipo == 'AA') {%>
                     <select name="estado" id="estado">
+                        <option value=""> </option>
                         <option value="Completo">Validar Processo</option>
                         <option value="Submetido para validação do DC">Submeter para validação do DC</option>
                         <option value="Submetido para validação do PresidenteAA">Submeter para validação do Presidente dos Assuntos Académicos</option>
@@ -84,12 +88,14 @@
                 <% } %>
                 <%if(user.tipo == 'DC') {%>
                     <select name="estado" id="estado">
+                        <option value=""> </option>
                         <option value="Validado por DC">Valida e enviar aos Assuntos Académicos</option>
                         <option value="Retornado para revisão">Retornar o processo aos Assuntos Académicos</option>
                     </select>
                 <% } %>    
                 <%if(user.tipo == 'PAA') {%>
                     <select name="estado" id="estado">
+                        <option value=""> </option>
                         <option value="Validado por PAA">Valida e enviar aos Assuntos Académicos</option>
                         <option value="Retornado para revisão">Retornar o processo aos Assuntos Académicos</option>
                     </select>

@@ -26,6 +26,41 @@ const getProcessoByUser = async (userId) => {
     }
 }
 
+const getProcessoByUserAndEstado = async (user) => {
+    try {
+
+        let filteredProcessos = [];
+
+        if (user.tipo === "AA") {
+            // Filter processes for AA user
+            filteredProcessos = await db.processos.find({
+                $or: [
+                    { estado: "Submetido para validação" },
+                    { estado: "Retornado para revisão" },
+                    { estado: "Validado por PAA" },
+                    { estado: "Validado por DC" }
+                ]
+            }).toArray();
+        } else if (user.tipo === "DC") {
+            // Filter processes for DC user
+            filteredProcessos = await db.processos.find({
+                estado: "Submetido para validação do DC",
+                curso: user.curso
+            }).toArray();
+        } else if (user.tipo === "PAA") {
+            // Filter processes for PAA user
+            filteredProcessos = await db.processos.find({
+                estado: "Submetido para validação do PresidenteAA"
+            }).toArray();
+        }
+
+        return filteredProcessos;
+    } catch (error) {
+        throw new Error('Error fetching processes by user and estado: ' + error.message);
+    }
+};
+
+
 const insertProcesso = async (processoData) => {
     try {
         const result = await db.processos.insertOne(processoData);
@@ -72,5 +107,6 @@ module.exports = {
     getProcessoByUser,
     insertProcesso,
     updateProcesso,
-    updateProcessoEstadoById
+    updateProcessoEstadoById,
+    getProcessoByUserAndEstado
 }

@@ -10,7 +10,7 @@ const session = require('express-session')
 
 const { insertUser } = require('./database/users')
 const { insertPautaNotas, getPautaNotasByUser, getPautaByType } = require('./database/pautas')
-const { insertProcesso, getProcessoByUser, getAllProcessos, getProcessoById, updateProcesso, updateProcessoEstadoById } = require('./database/processos');
+const { insertProcesso, getProcessoByUser, getAllProcessos, getProcessoById, updateProcesso, updateProcessoEstadoById, getProcessoByUserAndEstado } = require('./database/processos');
 
 const initializePassport = require('./passport-config');
 initializePassport(passport)
@@ -99,7 +99,7 @@ app.get('/processos', async (req, res) => {
             res.render('processos.ejs', { user: req.user, processos: userProcessos });
         }
         else if(req.user.tipo == 'DC' || req.user.tipo == 'AA' || req.user.tipo == 'PAA') {
-            const processos = await getAllProcessos();
+            const processos = await getProcessoByUserAndEstado(req.user);
             res.render('processos.ejs', { user: req.user, processos: processos });
         }
     } catch (error) {
@@ -187,10 +187,10 @@ app.post('/processos', async (req, res) => {
     if(req.user.tipo == 'Aluno'){
         newProcesso = {
             curso: req.body.curso,
-            numeroAluno: req.body.numAluno,
+            numeroAluno: req.body.numeroAluno,
             entidade: req.body.entidade,
             anoLetivo: req.body.anoLetivo,
-            pedido: req.body.pedidos,
+            pedido: req.body.pedido,
             assunto: req.body.assunto,
             ficheiro: req.body.ficheiro,
             userId: req.body.userId,

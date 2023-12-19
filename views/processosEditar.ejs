@@ -25,7 +25,7 @@
         <label class="col_log" onclick="location.href='http://localhost:3000/login';">Logout <%= user.name.split(' ')[0] %></label>
     </div>
 
-    <% if(user.tipo = 'Candidato') {%>
+    <% if(user.tipo == 'Candidato') {%>
 
         <form action="/processoEditar" method="POST">
             <h1>Candidatura</h1>
@@ -36,14 +36,14 @@
             <input type="text" name="pedido" placeholder="Pedido" value="<%= processo.pedido %>" readonly/>
             <label>Tipo de Candidatura: </label>
             <select id="curso" name="curso" required>
-                <option value="Engenharia Informática">Engenharia Informática</option>
-                <option value="Engenharia Eletrónica">Engenharia Eletrónica</option>
-            </select>
+                <option value="Engenharia Informática" <%= processo.curso === 'Engenharia Informática' ? 'selected' : '' %>>Engenharia Informática</option>
+                <option value="Engenharia Eletrónica" <%= processo.curso === 'Engenharia Eletrónica' ? 'selected' : '' %>>Engenharia Eletrónica</option>
+            </select>            
             <label>Curso: </label>
             <select id="tipoCandidatura" name="tipoCandidatura">
-                <option value="Mestrado">Mestrado</option>
-                <option value="Doutoramento">Doutoramento</option>
-            </select>
+                <option value="Mestrado" <%= processo.tipoCandidatura === 'Mestrado' ? 'selected' : '' %>>Mestrado</option>
+                <option value="Doutoramento" <%= processo.tipoCandidatura === 'Doutoramento' ? 'selected' : '' %>>Doutoramento</option>
+            </select>            
             <label>Assunto: </label>
             <input type="text" name="assunto" placeholder="Assunto" value="<%= processo.assunto %>"/>
             <label>Anexar Novo Documento: </label>
@@ -67,21 +67,19 @@
             <label>Curso: </label>
             <input type="text" id="curso" name="curso" value = "<%= processo.curso %>" readonly/>
             <label>Ano Letivo: </label>
-            <select name = "anoLetivo" id="anoLetivo" required>
-                <option value = ""> </option>
-                <option value="2023/2024">2023/2024</option>
-                <option value="2022/2023">2022/2023</option>
-                <option value="2021/2022">2021/2022</option>
-            </select>
+            <select name="anoLetivo" id="anoLetivo" required>
+                <option value="2023/2024" <%= processo.anoLetivo === '2023/2024' ? 'selected' : '' %>>2023/2024</option>
+                <option value="2022/2023" <%= processo.anoLetivo === '2022/2023' ? 'selected' : '' %>>2022/2023</option>
+                <option value="2021/2022" <%= processo.anoLetivo === '2021/2022' ? 'selected' : '' %>>2021/2022</option>
+            </select>            
             <label>Pedido: </label>
-            <select name = "pedido" id="pedidos" required>
-                <option value = ""> </option>
-                <option value="Alteração de Inscrição (por via de creditações)">Alteração de Inscrição (por via de creditações)</option>
-                <option value="Anulação de Matrícula/Inscrição">Anulação de Matrícula/Inscrição</option>
-                <option value="Anulação de Unidades Curriculares (Será recusado se existirem pautas lançadas)">Anulação de Unidades Curriculares (Será recusado se existirem pautas lançadas)</option>
-                <option value="Carta de agregação (Diploma) (150.00 Eur)">Carta de agregação (Diploma) (150.00 Eur)</option>
-                <option value="Certificado Aproveitamento  Escolar (10.00 Eur)">Certificado Aproveitamento  Escolar (10.00 Eur)</option>
-            </select>
+            <select name="pedido" id="pedidos" required>
+                <option value="Alteração de Inscrição (por via de creditações)" <%= processo.pedido === 'Alteração de Inscrição (por via de creditações)' ? 'selected' : '' %>>Alteração de Inscrição (por via de creditações)</option>
+                <option value="Anulação de Matrícula/Inscrição" <%= processo.pedido === 'Anulação de Matrícula/Inscrição' ? 'selected' : '' %>>Anulação de Matrícula/Inscrição</option>
+                <option value="Anulação de Unidades Curriculares (Será recusado se existirem pautas lançadas)" <%= processo.pedido === 'Anulação de Unidades Curriculares (Será recusado se existirem pautas lançadas)' ? 'selected' : '' %>>Anulação de Unidades Curriculares (Será recusado se existirem pautas lançadas)</option>
+                <option value="Carta de agregação (Diploma) (150.00 Eur)" <%= processo.pedido === 'Carta de agregação (Diploma) (150.00 Eur)' ? 'selected' : '' %>>Carta de agregação (Diploma) (150.00 Eur)</option>
+                <option value="Certificado Aproveitamento Escolar (10.00 Eur)" <%= processo.pedido === 'Certificado Aproveitamento Escolar (10.00 Eur)' ? 'selected' : '' %>>Certificado Aproveitamento Escolar (10.00 Eur)</option>
+            </select>            
             <label>Assunto: </label>
             <input type="textarea" id="assunto" name="assunto" value="<%= processo.assunto %>"/>
             <label>Anexar Novo Documento: </label>
