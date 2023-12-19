@@ -70,7 +70,6 @@ app.post('/candidato', async (req, res) => {
         name: req.body.name,
         curso: req.body.curso,
         emailPessoal: req.body.email,
-        processos: [],
         password: 'candidato' + (Math.random() * (99999 - 99) + 99)
     };
 
