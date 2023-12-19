@@ -46,10 +46,31 @@ const updateProcessoEstadoById = async (processoId, newEstado) => {
     }
 };
 
+const updateProcesso = async (processId, updatedProcess) => {
+    try {
+        const result = await db.processos.updateOne(
+            { _id: new ObjectId(processId) },
+            { $set: updatedProcess }
+        );
+
+        if (result.modifiedCount === 0) {
+            throw new Error('Process not found');
+        }
+
+        // Retrieve and return the updated document
+        const updatedDocument = await db.processos.findOne({ _id: new ObjectId(processId) });
+        return updatedDocument;
+    } catch (error) {
+        throw new Error('Error updating process: ' + error.message);
+    }
+};
+
+
 module.exports = {
     getAllProcessos,
     getProcessoById,
     getProcessoByUser,
     insertProcesso,
+    updateProcesso,
     updateProcessoEstadoById
 }

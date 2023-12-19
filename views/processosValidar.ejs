@@ -24,80 +24,138 @@
         <label class="col" onclick="location.href='http://localhost:3000/informacao';">Informação Pública</label>
         <label class="col_log" onclick="location.href='http://localhost:3000/login';">Logout <%= user.name.split(' ')[0] %></label>
     </div>
+    <% if(user.tipo != 'Candidato' && user.tipo != 'Aluno') {%>
+        <%if(processo.pedido == 'Candidatura a curso') {%>
 
-    <%if(processo.pedido == 'Candidatura a curso') {%>
+            <form action="/processoValidar" method="POST">
+                <h1>Validar Candidatura</h1>
+                
+                <input type="text" name="entidade" placeholder="Entidade" value="<%= processo.entidade %>" readonly/>
+                <input type="text" name="pedido" placeholder="Pedido" value="<%= processo.pedido %>" readonly/>
+                <input type="text" name="curso" placeholder="Curso" value="<%= processo.curso %>" readonly/>
+                <input type="text" name="tipoCandidatura" placeholder="Tipo de Candidatura" value="<%= processo.tipoCandidatura %>" readonly/>
+                <input type="text" name="assunto" placeholder="Assunto" value="<%= processo.assunto %>" readonly/>
+                <input type="text" name="ficheiro" placeholder="Ficheiro" value="<%= processo.ficheiro %>" readonly/>
 
-        <form action="/processoValidar" method="POST">
-            <h1>Validar Candidatura</h1>
+                <%if(user.tipo == 'AA') {%>
+                    <select name="estado" id="estado">
+                        <option value="Completo">Validar Processo</option>
+                        <option value="Submetido para validação do DC">Submeter para validação do DC</option>
+                        <option value="Submetido para validação do PresidenteAA">Submeter para validação do Presidente dos Assuntos Académicos</option>
+                        <option value="Rejeitado">Rejeitar Processo</option>
+                    </select>
+                <% } %>
+                <%if(user.tipo == 'DC') {%>
+                    <select name="estado" id="estado">
+                        <option value="Validado por DC">Valida e enviar aos Assuntos Académicos</option>
+                        <option value="Retornado para revisão">Retornar o processo aos Assuntos Académicos</option>
+                    </select>
+                <% } %>    
+                <%if(user.tipo == 'PAA') {%>
+                    <select name="estado" id="estado">
+                        <option value="Validado por PAA">Valida e enviar aos Assuntos Académicos</option>
+                        <option value="Retornado para revisão">Retornar o processo aos Assuntos Académicos</option>
+                    </select>
+                <% } %>
+
+                <input type="hidden" name="processoId" value="<%= processo._id %>"/>
+
+                <input type="submit" value="Submeter" />
+            </form>
+        <%} else {%>
+            <form action="/processoValidar" method="POST">
+                <h1>Validar Processo</h1>
+                
+                <input type="text" name="curso" placeholder="Curso" value="<%= processo.curso %>" readonly/>
+                <input type="text" name="numeroAluno" placeholder="Número do aluno" value="<%= processo.numeroAluno %>" readonly/>
+                <input type="text" name="entidade" placeholder="Entidade" value="<%= processo.entidade %>" readonly/>
+                <input type="text" name="anoLetivo" placeholder="Ano Lectivo" value="<%= processo.anoLetivo %>" readonly/>
+                <input type="text" name="pedido" placeholder="Pedido" value="<%= processo.pedido %>" readonly/>
+                <input type="text" name="assunto" placeholder="Assunto" value="<%= processo.assunto %>" readonly/>
+                <input type="text" name="ficheiro" placeholder="Ficheiro" value="<%= processo.ficheiro %>" readonly/>
+        
+                <%if(user.tipo == 'AA') {%>
+                    <select name="estado" id="estado">
+                        <option value="Completo">Validar Processo</option>
+                        <option value="Submetido para validação do DC">Submeter para validação do DC</option>
+                        <option value="Submetido para validação do PresidenteAA">Submeter para validação do Presidente dos Assuntos Académicos</option>
+                        <option value="Rejeitado">Rejeitar Processo</option>
+                    </select>
+                <% } %>
+                <%if(user.tipo == 'DC') {%>
+                    <select name="estado" id="estado">
+                        <option value="Validado por DC">Valida e enviar aos Assuntos Académicos</option>
+                        <option value="Retornado para revisão">Retornar o processo aos Assuntos Académicos</option>
+                    </select>
+                <% } %>    
+                <%if(user.tipo == 'PAA') {%>
+                    <select name="estado" id="estado">
+                        <option value="Validado por PAA">Valida e enviar aos Assuntos Académicos</option>
+                        <option value="Retornado para revisão">Retornar o processo aos Assuntos Académicos</option>
+                    </select>
+                <% } %>
+
+                <input type="hidden" name="processoId" value="<%= processo._id %>"/>
+        
+                <input type="submit" value="Submeter" />
+            </form>
+        <% } %>
+    <% } else if (user.tipo == 'Candidato'){%>
+
+        <form action="/processosEditar" method="POST">
+            <h1>Candidatura</h1>
             
+            <label>Nome do Candidato: </label>
             <input type="text" name="entidade" placeholder="Entidade" value="<%= processo.entidade %>" readonly/>
+            <label>Pedido: </label>
             <input type="text" name="pedido" placeholder="Pedido" value="<%= processo.pedido %>" readonly/>
-            <input type="text" name="tipoCandidatura" placeholder="Tipo de Candidatura" value="<%= processo.tipoCandidatura %>" readonly/>
-            <input type="text" name="assunto" placeholder="Assunto" value="<%= processo.assunto %>" readonly/>
-            <input type="text" name="ficheiro" placeholder="Ficheiro" value="<%= processo.ficheiro %>" readonly/>
-
-            <%if(user.tipo == 'AA') {%>
-                <select name="estado" id="estado">
-                    <option value="Completo">Validar Processo</option>
-                    <option value="Submetido para validação do DC">Submeter para validação do DC</option>
-                    <option value="Submetido para validação do PresidenteAA">Submeter para validação do Presidente dos Assuntos Académicos</option>
-                    <option value="Rejeitado">Rejeitar Processo</option>
-                </select>
-            <% } %>
-            <%if(user.tipo == 'DC') {%>
-                <select name="estado" id="estado">
-                    <option value="Validado por DC">Valida e enviar aos Assuntos Académicos</option>
-                    <option value="Retornado para revisão">Retornar o processo aos Assuntos Académicos</option>
-                </select>
-            <% } %>    
-            <%if(user.tipo == 'PAA') {%>
-                <select name="estado" id="estado">
-                    <option value="Validado por PAA">Valida e enviar aos Assuntos Académicos</option>
-                    <option value="Retornado para revisão">Retornar o processo aos Assuntos Académicos</option>
-                </select>
-            <% } %>
-
-            <input type="hidden" name="processoId" value="<%= processo._id %>"/>
-
-            <input type="submit" value="Adicionar" />
-        </form>
-    <%} else {%>
-        <form action="/processoValidar" method="POST">
-            <h1>Validar Processo</h1>
-            
+            <label>Curso: </label>
             <input type="text" name="curso" placeholder="Curso" value="<%= processo.curso %>" readonly/>
-            <input type="text" name="numeroAluno" placeholder="Número do aluno" value="<%= processo.numeroAluno %>" readonly/>
-            <input type="text" name="entidade" placeholder="Entidade" value="<%= processo.entidade %>" readonly/>
-            <input type="text" name="anoLetivo" placeholder="Ano Lectivo" value="<%= processo.anoLetivo %>" readonly/>
-            <input type="text" name="pedido" placeholder="Pedido" value="<%= processo.pedido %>" readonly/>
+            <label>Tipo de Candidatura: </label>
+            <input type="text" name="tipoCandidatura" placeholder="Tipo de Candidatura" value="<%= processo.tipoCandidatura %>" readonly/>
+            <label>Assunto: </label>
             <input type="text" name="assunto" placeholder="Assunto" value="<%= processo.assunto %>" readonly/>
+            <label>Documento: </label>
             <input type="text" name="ficheiro" placeholder="Ficheiro" value="<%= processo.ficheiro %>" readonly/>
-    
-            <%if(user.tipo == 'AA') {%>
-                <select name="estado" id="estado">
-                    <option value="Completo">Validar Processo</option>
-                    <option value="Submetido para validação do DC">Submeter para validação do DC</option>
-                    <option value="Submetido para validação do PresidenteAA">Submeter para validação do Presidente dos Assuntos Académicos</option>
-                    <option value="Rejeitado">Rejeitar Processo</option>
-                </select>
-            <% } %>
-            <%if(user.tipo == 'DC') {%>
-                <select name="estado" id="estado">
-                    <option value="Validado por DC">Valida e enviar aos Assuntos Académicos</option>
-                    <option value="Retornado para revisão">Retornar o processo aos Assuntos Académicos</option>
-                </select>
-            <% } %>    
-            <%if(user.tipo == 'PAA') {%>
-                <select name="estado" id="estado">
-                    <option value="Validado por PAA">Valida e enviar aos Assuntos Académicos</option>
-                    <option value="Retornado para revisão">Retornar o processo aos Assuntos Académicos</option>
-                </select>
-            <% } %>
+            <label>Estado: </label>
+            <input type="text" name="estado" placeholder="Estado" value="<%= processo.estado %>" readonly/>
 
             <input type="hidden" name="processoId" value="<%= processo._id %>"/>
-    
-            <input type="submit" value="Adicionar" />
+
+            <%if (processo.estado != 'Completo') {%>
+            <input type="submit" value="Editar" />
+            <% } %>
         </form>
+        
+    <% } else {%>
+
+        <form action="/processosEditar" method="POST">
+            <h1>Processo</h1>
+            
+            <label>Nome do Aluno: </label>
+            <input type="text" id="entidade" name="entidade" value = "<%= processo.entidade %>" readonly/>
+            <label>Número do Aluno: </label>
+            <input type="text" id="numeroAluno" name="numeroAluno" value = "<%= processo.numeroAluno %>" readonly/>
+            <label>Curso: </label>
+            <input type="text" id="curso" name="curso" value = "<%= processo.curso %>" readonly/>
+            <label>Ano Letivo: </label>
+            <input type="text" id="anoLetivo name="anoLetivo" value = "<%= processo.anoLetivo %>" readonly/>
+            <label>Pedido: </label>
+            <input type="text" id="pedido" name="pedido" value ="<%= processo.pedido%>" readonly/>
+            <label>Assunto: </label>
+            <input type="textarea" id="assunto" name="assunto" value="<%= processo.assunto %>" readonly/>
+            <label>Documento: </label>
+            <input type="text" id="ficheiro" name="ficheiro" value="<%= processo.ficheiro %>" readonly/>
+            <label>Estado: </label>
+            <input type="text" name="estado" placeholder="Estado" value="<%= processo.estado %>" readonly/>
+
+            <input type="hidden" name="processoId" value="<%= processo._id %>"/>
+
+            <%if (processo.estado != 'Completo') {%>
+            <input type="submit" value="Editar" />
+            <% } %>
+        </form>
+
     <% } %>
 </body>
 </html>

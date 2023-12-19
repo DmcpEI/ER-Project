@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SGAU | Processos</title>
+    <link href="/processosValidar.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="navbar">
+      <% if (user.tipo == 'Aluno' || user.tipo == 'DC' || user.tipo == 'AA' || user.tipo == 'PAA') { %>
+          <label class="col_sel">Processos</label>
+        <% } %>
+        <% if (user.tipo == 'Aluno' || user.tipo == 'Regente') { %>
+          <label class="col" onclick="location.href='http://localhost:3000/pautas';">Pautas Escolares</label>
+        <% } %>
+        <% if (user.tipo == 'DC') { %>
+          <label class="col" onclick="location.href='http://localhost:3000/pautas';">Pautas de Colocados</label>
+        <% } %>
+        <% if (user.tipo == 'Candidato') { %>
+            <label class="col_sel">Candidatura</label>
+        <% } %>
+        <label class="col" onclick="location.href='http://localhost:3000/informacao';">Informação Pública</label>
+        <label class="col_log" onclick="location.href='http://localhost:3000/login';">Logout <%= user.name.split(' ')[0] %></label>
+    </div>
+
+    <% if(user.tipo = 'Candidato') {%>
+
+        <form action="/processoEditar" method="POST">
+            <h1>Candidatura</h1>
+            
+            <label>Nome do Candidato: </label>
+            <input type="text" name="entidade" placeholder="Entidade" value="<%= processo.entidade %>" readonly/>
+            <label>Pedido: </label>
+            <input type="text" name="pedido" placeholder="Pedido" value="<%= processo.pedido %>" readonly/>
+            <label>Tipo de Candidatura: </label>
+            <select id="curso" name="curso" required>
+                <option value="Engenharia Informática">Engenharia Informática</option>
+                <option value="Engenharia Eletrónica">Engenharia Eletrónica</option>
+            </select>
+            <label>Curso: </label>
+            <select id="tipoCandidatura" name="tipoCandidatura">
+                <option value="Mestrado">Mestrado</option>
+                <option value="Doutoramento">Doutoramento</option>
+            </select>
+            <label>Assunto: </label>
+            <input type="text" name="assunto" placeholder="Assunto" value="<%= processo.assunto %>"/>
+            <label>Anexar Novo Documento: </label>
+            <input type="file" name="ficheiro" placeholder="Ficheiro" value="<%= processo.ficheiro %>"/>
+
+            <input type="hidden" id="userId" name="userId" value ="<%= user._id %>">
+            <input type="hidden" name="processoId" value="<%= processo._id %>"/>
+
+            <input type="submit" value="Submeter" />
+        </form>
+
+    <% } else {%>
+
+        <form action="/processoEditar" method="POST">
+            <h1>Processo</h1>
+            
+            <label>Nome do Aluno: </label>
+            <input type="text" id="entidade" name="entidade" value = "<%= processo.entidade %>" readonly/>
+            <label>Número do Aluno: </label>
+            <input type="text" id="numeroAluno" name="numeroAluno" value = "<%= processo.numeroAluno %>" readonly/>
+            <label>Curso: </label>
+            <input type="text" id="curso" name="curso" value = "<%= processo.curso %>" readonly/>
+            <label>Ano Letivo: </label>
+            <select name = "anoLetivo" id="anoLetivo" required>
+                <option value = ""> </option>
+                <option value="2023/2024">2023/2024</option>
+                <option value="2022/2023">2022/2023</option>
+                <option value="2021/2022">2021/2022</option>
+            </select>
+            <label>Pedido: </label>
+            <select name = "pedido" id="pedidos" required>
+                <option value = ""> </option>
+                <option value="Alteração de Inscrição (por via de creditações)">Alteração de Inscrição (por via de creditações)</option>
+                <option value="Anulação de Matrícula/Inscrição">Anulação de Matrícula/Inscrição</option>
+                <option value="Anulação de Unidades Curriculares (Será recusado se existirem pautas lançadas)">Anulação de Unidades Curriculares (Será recusado se existirem pautas lançadas)</option>
+                <option value="Carta de agregação (Diploma) (150.00 Eur)">Carta de agregação (Diploma) (150.00 Eur)</option>
+                <option value="Certificado Aproveitamento  Escolar (10.00 Eur)">Certificado Aproveitamento  Escolar (10.00 Eur)</option>
+            </select>
+            <label>Assunto: </label>
+            <input type="textarea" id="assunto" name="assunto" value="<%= processo.assunto %>"/>
+            <label>Anexar Novo Documento: </label>
+            <input type="file" name="ficheiro" placeholder="Ficheiro" value="<%= processo.ficheiro %>"/>
+
+            <input type="hidden" id="userId" name="userId" value ="<%= user._id %>">
+            <input type="hidden" name="processoId" value="<%= processo._id %>"/>
+
+            <input type="submit" value="Submeter" />
+        </form>
+
+    <% } %>
