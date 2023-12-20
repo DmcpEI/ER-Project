@@ -123,7 +123,11 @@
         <option value="Doutoramento">Doutoramento</option>
       </select>
       <label>Curso: </label>
-      <input type="text" id="pedidoC" name="curso" value = "<%= user.curso %>" readonly/>
+        <select id="curso" name="curso" required>
+          <option value=""> </option>
+          <option value="Engenharia Informática">Engenharia Informática</option>
+          <option value="Engenharia Eletrónica">Engenharia Eletrónica</option>
+        </select> 
       <label>Assunto: </label>
       <input type="textarea" id="assuntoC" name="assunto"/>
       <label>Anexar Documento: </label>

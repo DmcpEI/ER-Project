@@ -34,12 +34,12 @@
             <input type="text" name="entidade" placeholder="Entidade" value="<%= processo.entidade %>" readonly/>
             <label>Pedido: </label>
             <input type="text" name="pedido" placeholder="Pedido" value="<%= processo.pedido %>" readonly/>
-            <label>Tipo de Candidatura: </label>
+            <label>Curso: </label>
             <select id="curso" name="curso" required>
                 <option value="Engenharia Informática" <%= processo.curso === 'Engenharia Informática' ? 'selected' : '' %>>Engenharia Informática</option>
                 <option value="Engenharia Eletrónica" <%= processo.curso === 'Engenharia Eletrónica' ? 'selected' : '' %>>Engenharia Eletrónica</option>
             </select>            
-            <label>Curso: </label>
+            <label>Tipo de Candidatura: </label>
             <select id="tipoCandidatura" name="tipoCandidatura">
                 <option value="Mestrado" <%= processo.tipoCandidatura === 'Mestrado' ? 'selected' : '' %>>Mestrado</option>
                 <option value="Doutoramento" <%= processo.tipoCandidatura === 'Doutoramento' ? 'selected' : '' %>>Doutoramento</option>
