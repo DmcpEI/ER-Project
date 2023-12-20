@@ -68,7 +68,6 @@ app.post('/candidato', async (req, res) => {
     const newUser = {
         tipo: 'Candidato',
         name: req.body.name,
-        curso: req.body.curso,
         emailPessoal: req.body.email,
         password: 'candidato' + (Math.random() * (99999 - 99) + 99)
     };
